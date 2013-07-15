@@ -7,6 +7,7 @@ import configparser
 import hyperparameters
 
 import examples
+import copy
 import state
 import stats
 import diagnostics
@@ -29,18 +30,14 @@ if __name__ == "__main__":
     # import noise
     # indexed_weights = noise.indexed_weights()
 
-    runtimeconfig = copy.deepcopy(hyperparameters.config)
+    runtimeconfig = copy.copy(hyperparameters.config)
     rundir = runtimeconfig.get("data", "run_dir")
     # common.dump.create_canonical_directory(HYPERPARAMETERS)
 
     import os.path, os
     logfile = os.path.join(rundir, "training.log")
-    if newkeystr != "":
-        verboselogfile = os.path.join(rundir, "log%s" % newkeystr)
-        logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
-        os.system("ln -s log %s " % (verboselogfile))
-    else:
-        print("Logging to %s, not creating any link because of default settings" % logfile, file=sys.stderr)
+    verboselogfile = os.path.join(rundir, "log%s" % newkeystr)
+    logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
     import random, numpy
     random.seed(miscglobals.RANDOMSEED)

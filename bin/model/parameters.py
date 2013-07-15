@@ -6,7 +6,6 @@ floatX = theano.configparser.parse_config_string('scalar.floatX')
 sqrt3 = sqrt(3.0)
 
 class Parameters:
-    
     import lexicon
 
     def __init__(self, wsz, vocab_size, vect_size, hidden_size, rnd_seed):
@@ -15,9 +14,10 @@ class Parameters:
         self.vect_size = vect_size
         self.hidden_size = hidden_size
         self.output_size = 1
+        self.input_size = vect_size * vocab_size
 
         import numpy
-        numpy.random.seed(seed)
+        numpy.random.seed(rnd_seed)
 
         self.embeddings = numpy.asarray((numpy.random.rand(self.vocab_size, embedding_size) - 0.5)* 2 * 0.01, dtype=floatX)
         self.hidden_weights = shared(numpy.asarray(random_weights(self.input_size, self.hidden_size, scale_by=1), dtype=floatx))

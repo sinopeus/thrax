@@ -2,36 +2,50 @@ import pickle, sys, tokenizer
 from collections import Counter
 from hyperparameters import *
 
-def read():
-  try:
-    lexicon = pickle.load(open(MODEL))
-  except:
-    lexicon = build(TRAINING_SENTENCES)
+class Corpus:
+  def __init__(self, file):
+    self.text = open(file).read()
 
-  return lexicon
+  def tokenize(self):
+    self.tokens = []
 
-def freqs(corpus):
-  corpus = tokenizer.tokenize(corpus)
-  merged_corpus = list(itertools.chain.from_iterable(corpus))
-  return Counter(corpus)
+    for line in iter(self.text):
+      sentence = []
+      for word in re.split('[,\?\!#&_`\.%·; <>]', line.strip().replace("-", "")): sentence.append(word.lower())
+      tokens.append(sentence)
 
-def build(corpus, size=None):
-  return dict(freqs(corpus).most_common(size)).keys()
+  def freqs(self):
+    self.tokenize()
+    self.freqtable = Counter(tokens)
 
-word_hash = None
-try:
-  word_hash = read(MODEL)
-except: pass
+  def most_common(self, number):
+    self.freqs()
+    return freqtable.most_common(number).keys()
 
-def write():
-  pickle.dump(word_hash, open(MODEL))
+class Dictionary:
+  def __init__(self, dictionary=None, number=None):
+    if modelfile != None:
+      self.word_hash = pickle.load(open(dictionary))
+    else:
+      self.word_hash = build(TRAINING_SENTENCES, number)
 
-def json_dump():
-  dumpfile = open(location, "w")
-  print(json.dumps(word_hash, ensure_ascii=false), file=JSON_DUMP)
+  def random(self, corpus, size=None):
+    words = corpus.freqs(size)
+    for word in words:
+      self.word_hash[word] = numpy.asarray((numpy.random.rand(self.vocab_size, embedding_size) - 0.5)* 2 * 0.01, dtype=floatX)
+    
 
-def json_convert_dump():
-  lexicon = read_lex(location)
-  dumpfile = open(location, "w")
-  print(json.dumps(lexicon, ensure_ascii=false), file=JSON_DUMP)
+  def update(self, word, embedding):
+    word_hash[word] = embedding
 
+  def dump(self):
+    pickle.dump(self.word_hash, open(MODEL))
+
+  def json_dump(self):
+    dumpfile = open(location, "w")
+    print(json.dumps(self.word_hash, ensure_ascii=false), file=JSON_DUMP)
+    
+  def json_convert_dump(self):
+    lexicon = read_lex(location)
+    dumpfile = open(location, "w")
+    print(json.dumps(lexicon, ensure_ascii=false), file=JSON_DUMP)
