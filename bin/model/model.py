@@ -6,8 +6,6 @@ import sys, pickle
 import math
 import logging
 
-from movingaverage import MovingAverage
-
 from lexicon import *
 
 class Model:
@@ -20,28 +18,17 @@ class Model:
 
     def __init__(self):
         self.parameters = Parameters()
+        self.trainer = Trainer()
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases
         graph.output_weights = self.parameters.output_weights
         graph.output_biases = self.parameters.output_biases
 
-        import set
-        self.train_loss = MovingAverage()
-        self.train_err = MovingAverage()
-        self.train_lossnonzero = MovingAverage()
-        self.train_squashloss = MovingAverage()
-        self.train_unpenalized_loss = MovingAverage()
-        self.train_l1penalty = MovingAverage()
-        self.train_unpenalized_lossnonzero = MovingAverage()
-        self.train_correct_score = MovingAverage()
-        self.train_noise_score = MovingAverage()
-        self.train_cnt = 0
-
     def __getstate__(self):
-        return (self.parameters, self.train_loss, self.train_err, self.train_lossnonzero, self.train_squashloss, self.train_unpenalized_loss, self.train_l1penalty, self.train_unpenalized_lossnonzero, self.train_correct_score, self.train_noise_score, self.train_cnt)
+        return (self.parameters, self.trainer)
 
     def __setstate__(self, state):
-        (self.parameters, self.train_loss, self.train_err, self.train_lossnonzero, self.train_squashloss, self.train_unpenalized_loss, self.train_l1penalty, self.train_unpenalized_lossnonzero, self.train_correct_score, self.train_noise_score, self.train_cnt) = state
+        (self.parameters, self.trainer) = state
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases
         graph.output_weights = self.parameters.output_weights
@@ -128,28 +115,7 @@ class Model:
             dcorrect_inputs = [d[ecnt] for d in dcorrect_inputss]
             dnoise_inputs = [d[ecnt] for d in dnoise_inputss]
 
-            self.train_loss.add(loss)
-            self.train_err.add(correct_score <= noise_score)
-            self.train_lossnonzero.add(loss > 0)
-            squashloss = 1./(1.+math.exp(-loss))
-            self.train_squashloss.add(squashloss)
-            self.train_unpenalized_loss.add(unpenalized_loss)
-            self.train_l1penalty.add(l1penalty)
-            self.train_unpenalized_lossnonzero.add(unpenalized_loss > 0)
-            self.train_correct_score.add(correct_score)
-            self.train_noise_score.add(noise_score)
-    
-            self.train_cnt += 1
-            if self.train_cnt % 10000 == 0:
-                logging.info(("After %d updates, pre-update train loss %s" % (self.train_cnt, self.train_loss.verbose_string())))
-                logging.info(("After %d updates, pre-update train error %s" % (self.train_cnt, self.train_err.verbose_string())))
-                logging.info(("After %d updates, pre-update train Pr(loss != 0) %s" % (self.train_cnt, self.train_lossnonzero.verbose_string())))
-                logging.info(("After %d updates, pre-update train squash(loss) %s" % (self.train_cnt, self.train_squashloss.verbose_string())))
-                logging.info(("After %d updates, pre-update train unpenalized loss %s" % (self.train_cnt, self.train_unpenalized_loss.verbose_string())))
-                logging.info(("After %d updates, pre-update train l1penalty %s" % (self.train_cnt, self.train_l1penalty.verbose_string())))
-                logging.info(("After %d updates, pre-update train Pr(unpenalized loss != 0) %s" % (self.train_cnt, self.train_unpenalized_lossnonzero.verbose_string())))
-                logging.info(("After %d updates, pre-update train correct score %s" % (self.train_cnt, self.train_correct_score.verbose_string())))
-                logging.info(("After %d updates, pre-update train noise score %s" % (self.train_cnt, self.train_noise_score.verbose_string())))
+            trainer.update(loss, correct_score, noise_score, unpenalized_loss, l1penalty)
                 
             for w in weights: assert w == weights[0]
             embedding_learning_rate = EMBEDDING_LEARNING_RATE * weights[0]
@@ -172,8 +138,6 @@ class Model:
         if len(to_normalize) > 0:
             to_normalize = [i for i in to_normalize]
             self.parameters.normalize(to_normalize)
-
-
 
     def predict(self, sequence):
         (score) = graph.predict(self.embed(sequence), self.parameters)
@@ -203,3 +167,74 @@ class Model:
             if correct_score <= corrupt_score:
                 rank += 1
         return rank
+
+class Trainer:
+    def __init__(self, loss, err, lossnonzero, squashloss, unpenalized_loss, l1penalty, unpenalized_lossnonzero, correct_score, noise_score):
+        self.train_loss = MovingAverage() 
+        self.train_err = MovingAverage()
+        self.train_lossnonzero = MovingAverage()
+        self.train_squashloss = MovingAverage()
+        self.train_unpenalized_loss = MovingAverage()
+        self.train_l1penalty  = MovingAverage()
+        self.train_unpenalized_lossnonzero = MovingAverage()
+        self.train_correct_score = MovingAverage()
+        self.train_noise_score = MovingAverage()
+        self.train_cnt = 0
+
+    def update(self, loss, correct_score, noise_score, unpenalized_loss, l1penalty):
+        self.train_loss.add(loss)
+        self.train_err.add(correct_score <= noise_score)
+        self.train_lossnonzero.add(loss > 0)
+        squashloss = 1./(1.+math.exp(-loss))
+        self.train_squashloss.add(squashloss)
+        self.train_unpenalized_loss.add(unpenalized_loss)
+        self.train_l1penalty.add(l1penalty)
+        self.train_unpenalized_lossnonzero.add(unpenalized_loss > 0)
+        self.train_correct_score.add(correct_score)
+        self.train_noise_score.add(noise_score)
+        self.train_cnt += 1
+
+        if self.train_cnt % 10000 == 0: update_log()
+
+    def update_log(self):
+        logging.info(("After %d updates, pre-update train loss %s" % (self.train_cnt, self.train_loss.verbose_string())))
+        logging.info(("After %d updates, pre-update train error %s" % (self.train_cnt, self.train_err.verbose_string())))
+        logging.info(("After %d updates, pre-update train Pr(loss != 0) %s" % (self.train_cnt, self.train_lossnonzero.verbose_string())))
+        logging.info(("After %d updates, pre-update train squash(loss) %s" % (self.train_cnt, self.train_squashloss.verbose_string())))
+        logging.info(("After %d updates, pre-update train unpenalized loss %s" % (self.train_cnt, self.train_unpenalized_loss.verbose_string())))
+        logging.info(("After %d updates, pre-update train l1penalty %s" % (self.train_cnt, self.train_l1penalty.verbose_string())))
+        logging.info(("After %d updates, pre-update train Pr(unpenalized loss != 0) %s" % (self.train_cnt, self.train_unpenalized_lossnonzero.verbose_string())))
+        logging.info(("After %d updates, pre-update train correct score %s" % (self.train_cnt, self.train_correct_score.verbose_string())))
+        logging.info(("After %d updates, pre-update train noise score %s" % (self.train_cnt, self.train_noise_score.verbose_string())))
+        
+
+class MovingAverage:
+    def __init__(self, percent=False):
+        self.mean = 0.
+        self.variance = 0
+        self.cnt = 0
+        self.percent = percent
+
+    def add(self, v):
+        """
+        Add value v to the moving average.
+        """
+        self.cnt += 1
+        self.mean = self.mean - (2. / self.cnt) * (self.mean - v)
+        # I believe I should compute self.variance AFTER updating the moving average, because
+        # the estimate of the mean is better.
+        # Yoshua concurs.
+        this_variance = (v - self.mean) * (v - self.mean)
+        self.variance = self.variance - (2. / self.cnt) * (self.variance - this_variance)
+
+    def __str__(self):
+        if self.percent:
+            return "(moving average): mean=%.3f%% stddev=%.3f" % (self.mean, math.sqrt(self.variance))
+        else:
+            return "(moving average): mean=%.3f stddev=%.3f" % (self.mean, math.sqrt(self.variance))
+
+    def verbose_string(self):
+        if self.percent:
+            return "(moving average): mean=%g%% stddev=%g" % (self.mean, math.sqrt(self.variance))
+        else:
+            return "(moving average): mean=%g stddev=%g" % (self.mean, math.sqrt(self.variance))
