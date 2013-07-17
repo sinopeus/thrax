@@ -14,7 +14,7 @@ from theano import gradient
 
 import theano.compile
 
-COMPILE_MODE = theano.compile.mode('c|py', 'fast_run')
+COMPILE_MODE = theano.compile.mode.Mode('c|py', 'fast_run')
 
 import numpy
 

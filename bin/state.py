@@ -1,59 +1,75 @@
 """
-Save and load training state.
-@todo: Training state variables (cnt, epoch, trainstate) should all be combined into one object.
+A class for keeping the state of training. A separate function is provided for loading a state.
 """
 
-import logging, os.path, pickle, sys, lexicon
+import logging, os.path, pickle, sys, examples
+from stats import stats
+
+def load(rundir=None):
+    filename = os.path.join(rundir, "trainstate.pkl")
+    trainstate = pickle.load(open(filename))
+    trainstate.rundir = rundir
+    return trainstate
 
 class TrainingState:
-    def __init__(self, model, cnt, epoch, trainstate, rundir):
-        self.model = model
-        self.cnt = cnt
-        self.epoch = epoch
-        self.trainstate = trainstate
+    def __init__(self, rundir=None):
+        import model.model as md
+        self.model = md.Model()
+        self.count = 0
+        self.epoch = 1
+        self.batch = examples.TrainingMinibatchStream()
         self.rundir = rundir
 
-    def save(model, cnt, epoch, trainstate, rundir, newkeystr):
-        filename = os.path.join(rundir, "model-%d%s.pkl" % (cnt, newkeystr))
+    def epoch(self, batch_size, validate_every):
+        logging.info("STARTING EPOCH #%d" % self.epoch)
+        for ebatch in self.batch:
+            self.count += len(ebatch)
+            self.model.train(ebatch)
+
+            if self.count % (int(1000. / batch_size) * batch_size) == 0:
+                logging.info("Finished training step %d (epoch %d)" % (self.count, self.epoch))
+                
+            if self.count % (int(100000. / batch_size) * batch_size) == 0:
+                if os.path.exists(os.path.join(self.rundir, "BAD")):
+                    logging.info("Detected file: %s\nSTOPPING" % os.path.join(self.rundir, "BAD"))
+                    sys.stderr.write("Detected file: %s\nSTOPPING\n" % os.path.join(self.rundir, "BAD"))
+                    sys.exit(0)
+                    
+            if self.count % (int( validate_every * 1./batch_size ) * batch_size) == 0:
+                self.save()
+                
+        self.batch = examples.TrainingMinibatchStream()
+        self.epoch += 1
+        
+    def save(self):
+        filename = os.path.join(self.rundir, "model-%d.pkl" % self.count)
+
+        try:
+            logging.info("Removing old model %s..." % filename)
+            os.remove(filename)
+            logging.info("...removed %s" % filename)
+        except IOError:
+            logging.info("Could NOT remove %s" % filename)
+            filename = os.path.join(self.rundir, "model.pkl")
+
         logging.info("Writing model to %s..." % filename)
         logging.info(stats())
-        pickle.dump(model, open(filename, "wb"))
+        pickle.dump(self.model, open(filename, "wb"))
         logging.info("...done writing model to %s" % filename)
         logging.info(stats())
-    
-        if _lastfilename is not None:
-            logging.info("Removing old model %s..." % _lastfilename)
-            try:
-                os.remove(_lastfilename)
-                logging.info("...removed %s" % _lastfilename)
-            except:
-                logging.info("Could NOT remove %s" % _lastfilename)
-        _lastfilename = filename
-    
-        filename = os.path.join(rundir, "trainstate.pkl")
-        pickle.dump((trainstate, cnt, epoch), myopen(filename, "wb"), protocol=-1)
-    
-        filename = os.path.join(rundir, "newkeystr.txt")
-        myopen(filename, "wt").write(newkeystr)
-    
-    def load(rundir, newkeystr):
-        """
-        Read the directory and load the model, the training count, the training epoch, and the training state.
-        """
-        global _lastfilename
-    
-        filename = os.path.join(rundir, "newkeystr.txt")
-        assert newkeystr == open(filename).read()
-    
-        filename = os.path.join(rundir, "trainstate.pkl")
-        (trainstate, cnt, epoch) = pickle.load(open(filename))
-    
-        filename = os.path.join(rundir, "model-%d%s.pkl" % (cnt, newkeystr))
-        logging.info("Reading model from %s...", filename)
+
+        filename = os.path.join(self.rundir, "trainstate-%d.pkl" % self.count)
+
+        try:
+            logging.info("Removing old training state %s..." % filename)
+            os.remove(filename)
+            logging.info("...removed %s" % filename)
+        except IOError:
+            logging.info("Could NOT remove %s" % filename)
+            filename = os.path.join(self.rundir, "trainstate.pkl")
+
+        logging.info("Writing training state to %s..." % filename)
         logging.info(stats())
-        model = lexicon.read(filename)
-        logging.info("...done reading model from %s", filename)
+        pickle.dump(self, open(filename, "wb"))
+        logging.info("...done writing training state to %s" % filename)
         logging.info(stats())
-        _lastfilename = filename
-    
-        return (model, cnt, epoch, trainstate)

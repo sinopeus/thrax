@@ -1,6 +1,6 @@
-from parameters import Parameters
+from model.parameters import Parameters
 from hyperparameters import *
-import graph
+import model.graph
 
 import sys, pickle
 import math
@@ -90,7 +90,6 @@ class Model:
         return noise_sequences, weights
 
     def train(self, correct_sequences):
-        from hyperparameters import *
         learning_rate = LEARNING_RATE
         noise_sequences, weights = self.corrupt_examples(correct_sequences)
         # All weights must be the same, if we first multiply by the learning rate
@@ -99,8 +98,7 @@ class Model:
         r = graph.train(self.embeds(correct_sequences), self.embeds(noise_sequences), learning_rate * weights[0])
         (dcorrect_inputss, dnoise_inputss, losss, unpenalized_losss, l1penaltys, correct_scores, noise_scores) = r
 
-        import sets
-        to_normalize = sets.Set()
+        to_normalize = set()
         for ecnt in range(len(correct_sequences)):
             (loss, unpenalized_loss, correct_score, noise_score) = \
                 (losss[ecnt], unpenalized_losss[ecnt], correct_scores[ecnt], noise_scores[ecnt])
@@ -169,43 +167,43 @@ class Model:
         return rank
 
 class Trainer:
-    def __init__(self, loss, err, lossnonzero, squashloss, unpenalized_loss, l1penalty, unpenalized_lossnonzero, correct_score, noise_score):
-        self.train_loss = MovingAverage() 
-        self.train_err = MovingAverage()
-        self.train_lossnonzero = MovingAverage()
-        self.train_squashloss = MovingAverage()
-        self.train_unpenalized_loss = MovingAverage()
-        self.train_l1penalty  = MovingAverage()
-        self.train_unpenalized_lossnonzero = MovingAverage()
-        self.train_correct_score = MovingAverage()
-        self.train_noise_score = MovingAverage()
-        self.train_cnt = 0
+    def __init__(self):
+        self.loss = MovingAverage() 
+        self.err = MovingAverage()
+        self.lossnonzero = MovingAverage()
+        self.squashloss = MovingAverage()
+        self.unpenalized_loss = MovingAverage()
+        self.l1penalty  = MovingAverage()
+        self.unpenalized_lossnonzero = MovingAverage()
+        self.correct_score = MovingAverage()
+        self.noise_score = MovingAverage()
+        self.cnt = 0
 
     def update(self, loss, correct_score, noise_score, unpenalized_loss, l1penalty):
-        self.train_loss.add(loss)
-        self.train_err.add(correct_score <= noise_score)
-        self.train_lossnonzero.add(loss > 0)
-        squashloss = 1./(1.+math.exp(-loss))
-        self.train_squashloss.add(squashloss)
-        self.train_unpenalized_loss.add(unpenalized_loss)
-        self.train_l1penalty.add(l1penalty)
-        self.train_unpenalized_lossnonzero.add(unpenalized_loss > 0)
-        self.train_correct_score.add(correct_score)
-        self.train_noise_score.add(noise_score)
-        self.train_cnt += 1
+        self.loss.add(loss)
+        self.err.add(int(correct_score <= noise_score))
+        self.lossnonzero.add(int(loss > 0))
+        squashloss = 1. / (1. + math.exp(-loss))
+        self.squashloss.add(squashloss)
+        self.unpenalized_loss.add(unpenalized_loss)
+        self.l1penalty.add(l1penalty)
+        self.unpenalized_lossnonzero.add(int(unpenalized_loss > 0))
+        self.correct_score.add(correct_score)
+        self.noise_score.add(noise_score)
+        self.cnt += 1
 
-        if self.train_cnt % 10000 == 0: update_log()
+        if self.cnt % 10000 == 0: update_log()
 
     def update_log(self):
-        logging.info(("After %d updates, pre-update train loss %s" % (self.train_cnt, self.train_loss.verbose_string())))
-        logging.info(("After %d updates, pre-update train error %s" % (self.train_cnt, self.train_err.verbose_string())))
-        logging.info(("After %d updates, pre-update train Pr(loss != 0) %s" % (self.train_cnt, self.train_lossnonzero.verbose_string())))
-        logging.info(("After %d updates, pre-update train squash(loss) %s" % (self.train_cnt, self.train_squashloss.verbose_string())))
-        logging.info(("After %d updates, pre-update train unpenalized loss %s" % (self.train_cnt, self.train_unpenalized_loss.verbose_string())))
-        logging.info(("After %d updates, pre-update train l1penalty %s" % (self.train_cnt, self.train_l1penalty.verbose_string())))
-        logging.info(("After %d updates, pre-update train Pr(unpenalized loss != 0) %s" % (self.train_cnt, self.train_unpenalized_lossnonzero.verbose_string())))
-        logging.info(("After %d updates, pre-update train correct score %s" % (self.train_cnt, self.train_correct_score.verbose_string())))
-        logging.info(("After %d updates, pre-update train noise score %s" % (self.train_cnt, self.train_noise_score.verbose_string())))
+        logging.info(("After %d updates, pre-update train loss %s" % (self.cnt, self.loss.verbose_string())))
+        logging.info(("After %d updates, pre-update train error %s" % (self.cnt, self.err.verbose_string())))
+        logging.info(("After %d updates, pre-update train Pr(loss != 0) %s" % (self.cnt, self.lossnonzero.verbose_string())))
+        logging.info(("After %d updates, pre-update train squash(loss) %s" % (self.cnt, self.squashloss.verbose_string())))
+        logging.info(("After %d updates, pre-update train unpenalized loss %s" % (self.cnt, self.unpenalized_loss.verbose_string())))
+        logging.info(("After %d updates, pre-update train l1penalty %s" % (self.cnt, self.l1penalty.verbose_string())))
+        logging.info(("After %d updates, pre-update train Pr(unpenalized loss != 0) %s" % (self.cnt, self.unpenalized_lossnonzero.verbose_string())))
+        logging.info(("After %d updates, pre-update train correct score %s" % (self.cnt, self.correct_score.verbose_string())))
+        logging.info(("After %d updates, pre-update train noise score %s" % (self.cnt, self.noise_score.verbose_string())))
         
 
 class MovingAverage:

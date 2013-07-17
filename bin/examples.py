@@ -11,8 +11,8 @@ class TrainingExampleStream(object):
         pass
     
     def __iter__(self):
-        from vocabulary import word_hash
-        self.filename = TRAIN_SENTENCES
+        from lexicon import word_hash
+        self.filename = TRAINING_SENTENCES
         self.count = 0
 
         for l in iter(open(self.filename)):
@@ -47,7 +47,7 @@ class TrainingExampleStream(object):
         while count != self.count:
             iter.next()
         if self.filename != filename:
-            assert self.filename == TRAIN_SENTENCES
+            assert self.filename == TRAINING_SENTENCES
             logging.info("self.filename %s != filename given to __setstate__ %s" % (self.filename, filename))
         logging.info("...__setstate__(%s)" % repr(state))
         logging.info(stats())
@@ -77,7 +77,7 @@ class TrainingMinibatchStream(object):
         self.get_train_example.__setstate__(state[0])
 
 def get_validation_example():
-    from vocabulary import word_hash
+    from lexicon import word_hash
     for l in iter(open(VALIDATION_SENTENCES)):
         prevwords = []
         for w in string.split(l):

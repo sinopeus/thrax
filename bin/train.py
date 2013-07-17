@@ -5,6 +5,7 @@ import string
 import logging
 import configparser
 import hyperparameters
+from hyperparameters import *
 
 import examples
 import copy
@@ -30,53 +31,32 @@ if __name__ == "__main__":
     # import noise
     # indexed_weights = noise.indexed_weights()
 
-    runtimeconfig = copy.copy(hyperparameters.config)
-    rundir = runtimeconfig.get("data", "run_dir")
-    # common.dump.create_canonical_directory(HYPERPARAMETERS)
+    hyperparams = hyperparameters.load()
 
     import os.path, os
-    logfile = os.path.join(rundir, "training.log")
-    verboselogfile = os.path.join(rundir, "log%s" % newkeystr)
+
+    logfile = os.path.join(hyperparams.get("data", "run_dir", "training.log")
+    verboselogfile = os.path.join(RUN_DIR, "log")
+    logging.basicConfig(filename=logfile, filemode="w", level=logging.DEBUG)
     logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
     import random, numpy
-    random.seed(miscglobals.RANDOMSEED)
-    numpy.random.seed(miscglobals.RANDOMSEED)
+    random.seed(0)
+    numpy.random.seed(0)
 
     import lexicon
     import model
-
-    logging.basicConfig(filename=logfile, filemode="w", level=logging.DEBUG)
     
     try:
-        logging.info("Trying to read training state for %s %s..." % (newkeystr, rundir))
-        (m, cnt, epoch, get_train_minibatch) = state.load(rundir, newkeystr)
-        logging.info("...success reading training state for %s %s" % (newkeystr, rundir))
+        logging.info("Trying to read training state from %s..." % RUN_DIR)
+        trainstate = state.load(RUN_DIR)
+        logging.info("...success reading training state from %s" % RUN_DIR)
         logging.info("CONTINUING FROM TRAINING STATE")
     except IOError:
-        logging.info("...FAILURE reading training state for %s %s" % (newkeystr, rundir))
+        logging.info("...FAILURE reading training state from %s" % RUN_DIR)
         logging.info("INITIALIZING")
-
-        m = model.Model()
-        cnt = 0
-        epoch = 1
-        get_train_minibatch = examples.TrainingMinibatchStream()
+        trainstate = state.TrainingState(RUN_DIR)
         logging.info("INITIALIZING TRAINING STATE")
 
     while True:
-        logging.info("STARTING EPOCH #%d" % epoch)
-        for ebatch in get_train_minibatch:
-            cnt += len(ebatch)
-            m.train(ebatch)
-
-            if cnt % (int(1000./HYPERPARAMETERS["MINIBATCH SIZE"])*HYPERPARAMETERS["MINIBATCH SIZE"]) == 0:
-                logging.info("Finished training step %d (epoch %d)" % (cnt, epoch))
-            if cnt % (int(100000./HYPERPARAMETERS["MINIBATCH SIZE"])*HYPERPARAMETERS["MINIBATCH SIZE"]) == 0:
-                if os.path.exists(os.path.join(rundir, "BAD")):
-                    logging.info("Detected file: %s\nSTOPPING" % os.path.join(rundir, "BAD"))
-                    sys.stderr.write("Detected file: %s\nSTOPPING\n" % os.path.join(rundir, "BAD"))
-                    sys.exit(0)
-            if cnt % (int(HYPERPARAMETERS["VALIDATE_EVERY"]*1./HYPERPARAMETERS["MINIBATCH SIZE"])*HYPERPARAMETERS["MINIBATCH SIZE"]) == 0:
-                state.save(m, cnt, epoch, get_train_minibatch, rundir, newkeystr)
-        get_train_minibatch = examples.TrainingMinibatchStream()
-        epoch += 1
+        trainstate.epoch()
