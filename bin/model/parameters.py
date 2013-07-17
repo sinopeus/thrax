@@ -8,9 +8,9 @@ sqrt3 = sqrt(3.0)
 class Parameters:
     import lexicon
 
-    def __init__(self, wsz, vocab_size, vect_size, hidden_size, rnd_seed):
+    def __init__(self, window_size, vocab_size, vect_size, hidden_size, rnd_seed):
         self.vocab_size = vocab_size
-        self.wsz = wsz
+        self.window_size = window_size
         self.vect_size = vect_size
         self.hidden_size = hidden_size
         self.output_size = 1

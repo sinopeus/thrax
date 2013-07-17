@@ -1,12 +1,8 @@
 from model.parameters import Parameters
-from hyperparameters import *
-import model.graph
+import graph
 
-import sys, pickle
 import math
 import logging
-
-from lexicon import *
 
 class Model:
     """
@@ -113,7 +109,7 @@ class Model:
             dcorrect_inputs = [d[ecnt] for d in dcorrect_inputss]
             dnoise_inputs = [d[ecnt] for d in dnoise_inputss]
 
-            trainer.update(loss, correct_score, noise_score, unpenalized_loss, l1penalty)
+            self.trainer.update(loss, correct_score, noise_score, unpenalized_loss, l1penalty)
                 
             for w in weights: assert w == weights[0]
             embedding_learning_rate = EMBEDDING_LEARNING_RATE * weights[0]

@@ -1,90 +1,70 @@
 """
 Methods for getting examples.
 """
-
-import stats, string, sys
-from hyperparameters import *
+import string, logging
+from stats import stats
 
 class TrainingExampleStream(object):
-    def __init__(self):
+    def __init__(self, training_corpus, dictionary, window_size):
+        self.training_corpus = training_corpus
+        self.dictionary = dictionary
+        self.window_size = window_size
         self.count = 0
-        pass
     
     def __iter__(self):
-        from lexicon import word_hash
-        self.filename = TRAINING_SENTENCES
         self.count = 0
 
-        for l in iter(open(self.filename)):
+        for sentence in iter(self.training_corpus):
             prevwords = []
-            for w in string.split(l):
-                w = string.strip(w)
-                id = None
-                if word_hash.exists(w):
-                    prevwords.append(word_hash.id(w))
-                    if len(prevwords) >= WINDOW_SIZE:
+            for word in sentence:
+                if self.dictionary.contains(word):
+                    prevwords.append(self.dictionary.lookup(word))
+                    if len(prevwords) >= self.window_size:
                         self.count += 1
-                        yield prevwords[-WINDOW_SIZE:]
+                        yield prevwords[-self.window_size:]
                 else:
                     prevwords = []
 
     def __getstate__(self):
-        return self.filename, self.count
+        return self.training_corpus, self.dictionary, self.window_size, self.count
 
     def __setstate__(self, state):
-        """
-        @warning: We ignore the filename.  If we wanted
-        to be really fastidious, we would assume that
-        HYPERPARAMETERS["TRAIN_SENTENCES"] might change.  The only
-        problem is that if we change filesystems, the filename
-        might change just because the base file is in a different
-        path. So we issue a warning if the filename is different from
-        """
-        filename, count = state
+        self.training_corpus, self.dictionary, self.window_size, count = state
         logging.info("__setstate__(%s)..." % repr(state))
         logging.info(stats())
         iter = self.__iter__()
         while count != self.count:
             iter.next()
-        if self.filename != filename:
-            assert self.filename == TRAINING_SENTENCES
-            logging.info("self.filename %s != filename given to __setstate__ %s" % (self.filename, filename))
         logging.info("...__setstate__(%s)" % repr(state))
         logging.info(stats())
 
 class TrainingMinibatchStream(object):
-    def __init__(self):
-        pass
+    def __init__(self, stream, batch_size):
+        self.stream = stream
+        self.batch_size = batch_size
     
     def __iter__(self):
         minibatch = []
-        self.get_train_example = TrainingExampleStream()
-        for e in self.get_train_example:
+        for e in self.stream:
             minibatch.append(e)
-            if len(minibatch) >= MINIBATCH_SIZE:
-                assert len(minibatch) == MINIBATCH_SIZE
+            if len(minibatch) >= self.batch_size:
+                assert len(minibatch) == self.batch_size
                 yield minibatch
                 minibatch = []
 
     def __getstate__(self):
-        return (self.get_train_example.__getstate__(),)
+        return (self.stream, self.batch_size)
 
     def __setstate__(self, state):
-        """
-        @warning: We ignore the filename.
-        """
-        self.get_train_example = TrainingExampleStream()
-        self.get_train_example.__setstate__(state[0])
+        (self.stream, self.batch_size) = state
 
-def get_validation_example():
-    from lexicon import word_hash
-    for l in iter(open(VALIDATION_SENTENCES)):
+def get_validation_example(validation_sentences, window_size, dictionary):
+    for sentence in iter(corpus):
         prevwords = []
-        for w in string.split(l):
-            w = string.strip(w)
-            if word_hash.exists(w):
-                prevwords.append(word_hash.id(w))
-                if len(prevwords) >= WINDOW_SIZE:
-                    yield prevwords[-WINDOW_SIZE:]
+        for word in sentence:
+            if dictionary.contains(word):
+                prevwords.append(dictionary.lookup(w))
+                if len(prevwords) >= window_size:
+                    yield prevwords[-window_size:]
             else:
                 prevwords = []

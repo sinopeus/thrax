@@ -12,15 +12,18 @@ def load(rundir=None):
     return trainstate
 
 class TrainingState:
-    def __init__(self, rundir=None):
+    def __init__(self, rundir=None, training_sentences, word_hash, window_size):
         import model.model as md
         self.model = md.Model()
         self.count = 0
         self.epoch = 1
-        self.batch = examples.TrainingMinibatchStream()
+        self.stream = examples.TrainingStream(training_sentences,word_hash,window_size)
+        self.batch_size = batch_size
+        self.batch = examples.TrainingMinibatchStream(self.stream, self.batch_size)
+        self.validate_every = validate_every
         self.rundir = rundir
 
-    def epoch(self, batch_size, validate_every):
+    def epoch(self):
         logging.info("STARTING EPOCH #%d" % self.epoch)
         for ebatch in self.batch:
             self.count += len(ebatch)
