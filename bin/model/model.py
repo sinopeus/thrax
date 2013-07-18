@@ -12,8 +12,8 @@ class Model:
     @todo: Document
     """
 
-    def __init__(self):
-        self.parameters = Parameters()
+    def __init__(self, window_size, vocab_size, embedding_size, hidden_size, rnd):
+        self.parameters = Parameters(window_size, vocab_size, embedding_size, hidden_size, rnd)
         self.trainer = Trainer()
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases

@@ -1,6 +1,5 @@
 import pickle, re, json
-from collections import Counter 
-from collections import Iterator
+from collections import Counter, Iterator
 
 class Corpus(Iterator):
   def __init__(self, file):
@@ -10,32 +9,32 @@ class Corpus(Iterator):
 
   def next(self):
     try:
-      return self.text.readline()
+      return tokenise(self.text.readline())
     except:
       raise StopIteration
 
-  # def tokenize(self):
-  #   for line in iter(self.text.read()):
-  #     sentence = []
-  #     for word in re.split('[,\?\!#&_`\.%·; <>]', line.strip().replace("-", "")): sentence.append(word.lower())
-  #     self.sentences.append(sentence)
+  def tokenise(sentence):
+    sentence = []
+    for word in re.split('[,\?\!#&_`\.%·; <>]', line.strip().replace("-", "")): sentence.append(word.lower())
+    self.sentences.append(sentence)
+    return sentence
 
   def freqs(self):
-    for line in iter(self.text.read()):
-      sentence = []
-      for word in re.split('[,\?\!#&_`\.%·; <>]', line.strip().replace("-", "")): sentence.append(word.lower())
-      self.freqtable.update(Counter(sentence))
+    for line in iter(self):
+      self.freqtable.update(Counter(tokenise(line)))
+    self.text.seek(0, 0) # we do this once for each successive dictionary size and need to 'rewind' the corpus each time
 
   def most_common(self, number):
     self.freqs()
-    self.text.seek(0, 0) # we do this once for each dictionary size and need to 'rewind' the corpus each time
     return self.freqtable.most_common(number).keys()
 
 class Dictionary:
   def __init__(self, corpus=None, size=None):
+    self.corpus = corpus
     self.indices = {}
     if corpus != None and size != None:
       self.build(corpus.most_common(size))
+    self.size = size
     self.embeddings = {}
 
   # def random(self, corpus, size=None):
@@ -49,9 +48,9 @@ class Dictionary:
       self.indices[word] = i
       i += 1
   
-  # def update(self, embeddings):
-  #   for word in self.indices.keys()
-  #     self.embeddings[word] = embeddings[indices[word]]
+  def update(self, embeddings):
+    for word in self.indices.keys()
+      self.embeddings[word] = embeddings[indices[word]]
 
   def lookup(self, word):
     return self.indices[word]
@@ -59,8 +58,8 @@ class Dictionary:
   def exists(self, word):
     return (word in indices)
 
-  def json_dump(self):
-    print(json.dumps(self.indices, ensure_ascii=False), file=JSON_DUMP)
-    
-  def json_convert_dump(self):
-    print(json.dumps(self, ensure_ascii=False), file=JSON_DUMP)
+  def serialise(self, filename):
+    pickle.dump(self, filename)
+  
+  def json_dump(self, filename):
+    print(json.dumps(self.embeddings, ensure_ascii=False), file=filename)

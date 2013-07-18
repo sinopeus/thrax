@@ -12,36 +12,36 @@ def load(rundir=None):
     return trainstate
 
 class TrainingState:
-    def __init__(self, rundir=None, training_sentences, word_hash, window_size):
+    def __init__(self, **kwargs):
+        for (k, v) in kwargs.items():
+            setattr(self, k, v)
+        
         import model.model as md
-        self.model = md.Model()
+        self.model = md.Model(self.window_size, self.dictionary.size(), self.embedding_size, self.hidden_size, 0)
         self.count = 0
         self.epoch = 1
-        self.stream = examples.TrainingStream(training_sentences,word_hash,window_size)
-        self.batch_size = batch_size
-        self.batch = examples.TrainingMinibatchStream(self.stream, self.batch_size)
-        self.validate_every = validate_every
-        self.rundir = rundir
+        self.stream = examples.TrainingStream(training_corpus = self.corpus, dictionary = self.dictionary, window_size = self.window_size, batch_size = self.batch_size, validation_sentences = self.validation_sentences)
+        self.batch = self.stream.get_batch()
 
     def epoch(self):
         logging.info("STARTING EPOCH #%d" % self.epoch)
-        for ebatch in self.batch:
-            self.count += len(ebatch)
-            self.model.train(ebatch)
+        for example in self.batch:
+            self.count += len(example)
+            self.model.train(example)
 
-            if self.count % (int(1000. / batch_size) * batch_size) == 0:
+            if self.count % (int(1000. / self.batch_size) * self.batch_size) == 0:
                 logging.info("Finished training step %d (epoch %d)" % (self.count, self.epoch))
                 
-            if self.count % (int(100000. / batch_size) * batch_size) == 0:
+            if self.count % (int(100000. / self.batch_size) * self.batch_size) == 0:
                 if os.path.exists(os.path.join(self.rundir, "BAD")):
                     logging.info("Detected file: %s\nSTOPPING" % os.path.join(self.rundir, "BAD"))
                     sys.stderr.write("Detected file: %s\nSTOPPING\n" % os.path.join(self.rundir, "BAD"))
                     sys.exit(0)
                     
-            if self.count % (int( validate_every * 1./batch_size ) * batch_size) == 0:
+            if self.count % (int( self.validate_every * 1./self.batch_size ) * self.batch_size) == 0:
                 self.save()
                 
-        self.batch = examples.TrainingMinibatchStream()
+        self.batch = self.stream.get_batch()
         self.epoch += 1
         
     def save(self):

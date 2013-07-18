@@ -56,7 +56,8 @@ if __name__ == "__main__":
         window_size = hyperparams.get("training", "window_size")
         batch_size = hyperparams.get("training", "batch_size")
         validate_every = hyperparams.get("training", "validate_every")
-        trainstate = state.TrainingState(run_dir, training_corpus, dictionary, window_size, batch_size)
+        embedding_size = hyperparams.get("training", "embedding_size")
+        trainstate = state.TrainingState(rundir = run_dir, corpus = training_corpus, dictionary = dictionary, window_size = window_size, batch_size = batch_size, validate_every = validate_every)
         logging.info("INITIALIZING TRAINING STATE")
 
     while True:
