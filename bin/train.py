@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 
-import logging
-import hyperparameters
-
-import examples
-import state
-import stats
-from lexicon import corpus, dictionary 
+import logging, state, stats, examples
+from hyperparameters import Hyperparameters
 
 def validate(cnt):
     import math
@@ -26,39 +21,41 @@ if __name__ == "__main__":
     # import noise
     # indexed_weights = noise.indexed_weights()
 
-    hyperparams = hyperparameters.load()
+    hyperparameters = Hyperparameters("language-model.cfg")
 
     import os.path, os
 
-    run_dir = hyperparams.get("data", "run_dir")
+    run_dir = hyperparameters.run_dir
 
-    logfile = os.path.join(hyperparams.get("data", "run_dir"), hyperparams.get("training", "logfile"))
-    verboselogfile = os.path.join(run_dir, hyperparams.get("training", "verboselogfile"))
+    logfile = os.path.join(hyperparameters.run_dir, hyperparameters.logfile)
+    verboselogfile = os.path.join(run_dir, hyperparameters.verboselogfile)
     logging.basicConfig(filename=logfile, filemode="w", level=logging.DEBUG)
     logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
     import random, numpy
     random.seed(0)
     numpy.random.seed(0)
-    
+
     try:
-        logging.info("Trying to read training state from %s..." % run_dir)
         trainstate = state.load(run_dir)
         logging.info("...success reading training state from %s" % run_dir)
         logging.info("CONTINUING FROM TRAINING STATE")
     except IOError:
         logging.info("...FAILURE reading training state from %s" % run_dir)
         logging.info("INITIALIZING")
-        training_sentences = hyperparams.get("data", "training_sentences")
-        training_corpus = Corpus(training_sentences)
-        vocab_size = hyperparams.get("training", "vocab_size")
-        dictionary = Dictionary(training_corpus, vocab_size)
-        window_size = hyperparams.get("training", "window_size")
-        batch_size = hyperparams.get("training", "batch_size")
-        validate_every = hyperparams.get("training", "validate_every")
-        embedding_size = hyperparams.get("training", "embedding_size")
-        trainstate = state.TrainingState(rundir = run_dir, corpus = training_corpus, dictionary = dictionary, window_size = window_size, batch_size = batch_size, validate_every = validate_every)
-        logging.info("INITIALIZING TRAINING STATE")
 
-    while True:
+        from lexicon import Corpus, Dictionary
+        from state import TrainingState
+
+        logging.info("Reading corpus ...")
+        training_corpus = Corpus(os.path.join(hyperparameters.data_dir, hyperparameters.training_sentences))
+        hyperparameters.vocab_size = training_corpus.hyperparameters.vocab_size
+        logging.info("Corpus read, building dictionary ...")
+        dictionary = Dictionary(training_corpus, hyperparameters.curriculum_sizes[0])
+        logging.info("Dictionary built, proceeding with training.")
+        trainstate = TrainingState(training_corpus, dictionary, hyperparameters)
+
+    input("Press Enter to continue...")
+    for size in hyperparameters.curriculum_sizes:
         trainstate.epoch()
+        trainstate.dictionary.rebuild(size)

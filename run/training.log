@@ -1,4 +1,0 @@
-INFO:root:Logging to /Users/xavier/projects/thrax/run/training.log, and creating link /Users/xavier/projects/thrax/run/log
-INFO:root:Trying to read training state from /Users/xavier/projects/thrax/run/...
-INFO:root:...FAILURE reading training state from /Users/xavier/projects/thrax/run/
-INFO:root:INITIALIZING

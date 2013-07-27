@@ -1,5 +1,5 @@
 """
-Theano graph of Collobert & Weston language model. 
+Theano graph of Collobert & Weston neural network model.
 Originally written by Joseph Turian, adapted for Python 3 by Xavier Goás Aguililla.
 """
 

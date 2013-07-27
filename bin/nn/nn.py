@@ -13,8 +13,7 @@ class Model:
     """
 
     def __init__(self, hyperparameters):
-        self.hyperparameters = hyperparameters
-        self.parameters = Parameters(self.hyperparameters)
+        self.parameters = Parameters(hyperparameters.window_size, hyperparameters.vocab_size, hyperparameters.embedding_size, hyperparameters.hidden_size, hyperparameters.rnd_seed)
         self.trainer = Trainer()
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases
@@ -22,20 +21,20 @@ class Model:
         graph.output_biases = self.parameters.output_biases
 
     def __getstate__(self):
-        return (self.hyperparameters, self.parameters, self.trainer)
+        return (self.parameters, self.trainer)
 
     def __setstate__(self, state):
-        (self.hyperparameters, self.parameters, self.trainer) = state
+        (self.parameters, self.trainer) = state
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases
         graph.output_weights = self.parameters.output_weights
         graph.output_biases = self.parameters.output_biases
 
-    def embed(self, window):
+    def embed(self, sequence):
         """
         Embed a sequence of vocabulary IDs
         """
-        seq = [self.parameters.embeddings[word] for word in window]
+        seq = [self.parameters.embeddings[s] for s in sequence]
         import numpy
         return [numpy.resize(s, (1, s.size)) for s in seq]
 
@@ -66,15 +65,14 @@ class Model:
         import random
         import copy
         e = copy.copy(e)
-        pos = - self.hyperparameters.window_size // 2
-        mid = e[pos]
+        last = e[-1]
         cnt = 0
-        while e[pos] == mid:
-            e[pos] = random.randint(0, self.parameters.vocab_size-1)
+        while e[-1] == last:
+            e[-1] = random.randint(0, self.parameters.vocab_size-1)
             pr = 1. / self.parameters.vocab_size
             cnt += 1
             # Backoff to 0gram smoothing if we fail 10 times to get noise.
-            if cnt > 10: e[pos] = random.randint(0, self.parameters.vocab_size-1)
+            if cnt > 10: e[-1] = random.randint(0, self.parameters.vocab_size-1)
         weight = 1./pr
         return e, weight
 
@@ -87,11 +85,10 @@ class Model:
             weights.append(weight)
         return noise_sequences, weights
 
-    def train(self, correct_sequences):
+    def train(self, correct_sequences, learning_rate, embedding_learning_rate):
         noise_sequences, weights = self.corrupt_examples(correct_sequences)
         # All weights must be the same, if we first multiply by the learning rate
         for w in weights: assert w == weights[0]
-        learning_rate = self.hyperparameters.learning_rate
 
         r = graph.train(self.embeds(correct_sequences), self.embeds(noise_sequences), learning_rate * weights[0])
         (dcorrect_inputss, dnoise_inputss, losss, unpenalized_losss, l1penaltys, correct_scores, noise_scores) = r
@@ -114,7 +111,7 @@ class Model:
             self.trainer.update(loss, correct_score, noise_score, unpenalized_loss, l1penalty)
                 
             for w in weights: assert w == weights[0]
-            embedding_learning_rate = self.hyperparameters.embedding_learning_rate * weights[0]
+            embedding_learning_rate = embedding_learning_rate * weights[0]
             if loss == 0:
                 for di in dcorrect_inputs + dnoise_inputs:
                     assert (di == 0).all()
@@ -155,11 +152,10 @@ class Model:
         corrupt_sequence = copy.copy(sequence)
         rank = 1
         correct_score = self.predict(sequence)
-        mid = self.hyperparameters.window_size // 2
         for i in range(self.parameters.vocab_size):
-            if r.random() > self.hyperparameters.valdation_logrank_noise_examples_percent: continue
-            if i == sequence[mid]: continue
-            corrupt_sequence[mid] = i
+            if r.random() > VALIDATION_LOGRANK_NOISE_EXAMPLES_PERCENT: continue
+            if i == sequence[-1]: continue
+            corrupt_sequence[-1] = i
             corrupt_score = self.predict(corrupt_sequence)
             if correct_score <= corrupt_score:
                 rank += 1
@@ -191,7 +187,7 @@ class Trainer:
         self.noise_score.add(noise_score)
         self.cnt += 1
 
-        if self.cnt % 10000 == 0: self.update_log()
+        if self.cnt % 10000 == 0: update_log()
 
     def update_log(self):
         logging.info(("After %d updates, pre-update train loss %s" % (self.cnt, self.loss.verbose_string())))
