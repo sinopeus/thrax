@@ -1,10 +1,11 @@
-import re
+import re, logging
 from collections import Counter, Iterator
 
 class Corpus(Iterator):
   def __init__(self, file):
     self.text = open(file)
     self.freqtable = Counter()
+    self.freqs()
 
   def __iter__(self):
     return self
@@ -16,16 +17,23 @@ class Corpus(Iterator):
     return re.split('[,\?\!#&_`\.%·; <>]', line.strip().lower().replace("-", ""))
 
   def freqs(self):
+    logging.info("Building frequency table ...")
+
     for sentence in self:
       self.freqtable.update(Counter(sentence))
+      print(self.freqtable)
+      input("Press enter")
+
     self.rewind()
 
   def rewind(self):
     self.text.seek(0, 0) # rather avoid missing out on part of the corpus ...
 
   def most_common(self, number):
-    self.freqs()
     return self.freqtable.most_common(number).keys()
+
+  def lexicon_size(self):
+    return self.freqtable.keys().size()
 
 class Dictionary:
   def __init__(self, corpus=None, size=None):

@@ -14,7 +14,7 @@ class Hyperparameters:
 
         data_vars = ["data_dir", "bin_dir", "run_dir", "run_name", "modelfile", "statefile", "training_sentences", "validation_sentences", "logfile", "verboselogfile"]
 
-        training_vars = ["vocab_size", "curriculum_sizes", "batch_size", "init_embedding_range", "embedding_l1_penalty", "updates_per_normalize_embeddings", "validation_examples", "validation_logrank_noise_examples_percent", "embedding_size", "window_size", "hidden_size", "scale_init_weights_by", "activation_function", "learning_rate", "embedding_learning_rate", "validate_every", "validation_examples", "embedding_l1_penalty"]
+        training_vars = ["curriculum_sizes", "batch_size", "init_embedding_range", "embedding_l1_penalty", "updates_per_normalize_embeddings", "validation_examples", "validation_logrank_noise_examples_percent", "embedding_size", "window_size", "hidden_size", "scale_init_weights_by", "activation_function", "learning_rate", "embedding_learning_rate", "validate_every", "validation_examples", "embedding_l1_penalty"]
 
         bool_vars = ["normalize_embeddings", "include_unknown_words"]
 
@@ -27,4 +27,4 @@ class Hyperparameters:
         for opt in bool_vars:
             setattr(self, opt, config.getboolean("training",opt))
 
-        curriculum_sizes = int(*curriculum_sizes.split(","))
+        self.curriculum_sizes = [int(i) for i in self.curriculum_sizes.split(",")]

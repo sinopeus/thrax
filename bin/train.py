@@ -47,15 +47,17 @@ if __name__ == "__main__":
         from lexicon import Corpus, Dictionary
         from state import TrainingState
 
-        logging.info("Reading corpus ...")
+        logging.info("Processing corpus ...")
         training_corpus = Corpus(os.path.join(hyperparameters.data_dir, hyperparameters.training_sentences))
-        hyperparameters.vocab_size = training_corpus.hyperparameters.vocab_size
-        logging.info("Corpus read, building dictionary ...")
+        hyperparameters.vocab_size = training_corpus.lexicon_size()
+        logging.info("Corpus processed, initialising dictionary ...")
         dictionary = Dictionary(training_corpus, hyperparameters.curriculum_sizes[0])
-        logging.info("Dictionary built, proceeding with training.")
+        logging.info("Dictionary initialised, proceeding with training.")
         trainstate = TrainingState(training_corpus, dictionary, hyperparameters)
 
     input("Press Enter to continue...")
     for size in hyperparameters.curriculum_sizes:
-        trainstate.epoch()
+        logging.info("Resizing dictionary ... ")
         trainstate.dictionary.rebuild(size)
+        logging.info("Resized dictionary to size %s." % size)
+        trainstate.epoch()
