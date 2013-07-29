@@ -12,4 +12,5 @@ for sentence in corpus_file:
   freqtable.update(Counter(tokenise(sentence)))
 
 dictionary_file= open(sys.argv[2], 'a+')
-print(*freqtable.keys(),file=dictionary_file)
+for k, v in freqtable.most_common():
+    print(k, file=dictionary_file)
