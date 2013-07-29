@@ -6,6 +6,7 @@ class Corpus(Iterator):
     self.text = open(file)
     self.freqtable = Counter()
     self.freqs()
+    self.chars = re.compile('[,\?\!#&_`\.%·; <>]')
 
   def __iter__(self):
     return self
@@ -14,15 +15,15 @@ class Corpus(Iterator):
     return self.tokenise(self.text.readline())
 
   def tokenise(self, line):
-    return re.split('[,\?\!#&_`\.%·; <>]', line.strip().lower().replace("-", ""))
+    return self.chars.split(line.strip().lower().replace("-", ""))
 
   def freqs(self):
     logging.info("Building frequency table ...")
 
     for sentence in self:
       self.freqtable.update(Counter(sentence))
-      print(self.freqtable)
-      input("Press enter")
+      # print(self.freqtable)
+      # input("Press enter")
 
     self.rewind()
 

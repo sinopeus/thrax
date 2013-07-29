@@ -40,7 +40,7 @@ if __name__ == "__main__":
         trainstate = state.load(run_dir)
         logging.info("...success reading training state from %s" % run_dir)
         logging.info("CONTINUING FROM TRAINING STATE")
-    except IOError:
+    except FileNotFoundError:
         logging.info("...FAILURE reading training state from %s" % run_dir)
         logging.info("INITIALIZING")
 
