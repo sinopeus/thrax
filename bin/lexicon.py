@@ -1,12 +1,12 @@
 import re, logging
 from collections import Counter, Iterator
+chars = re.compile('[,\?\!#&_`\.%·; <>]')
 
 class Corpus(Iterator):
   def __init__(self, file):
     self.text = open(file)
     self.freqtable = Counter()
     self.freqs()
-    self.chars = re.compile('[,\?\!#&_`\.%·; <>]')
 
   def __iter__(self):
     return self
@@ -15,7 +15,7 @@ class Corpus(Iterator):
     return self.tokenise(self.text.readline())
 
   def tokenise(self, line):
-    return self.chars.split(line.strip().lower().replace("-", ""))
+    return chars.split(line.strip().lower().replace("-", ""))
 
   def freqs(self):
     logging.info("Building frequency table ...")
