@@ -12,4 +12,4 @@ for sentence in corpus_file:
   freqtable.update(Counter(tokenise(sentence)))
 
 dictionary_file= open(sys.argv[2], 'a+')
-print(freqtable,file=dictionary_file)
+print(*freqtable.keys(),file=dictionary_file)
