@@ -81,17 +81,17 @@ def functions(sequence_length):
         import theano.gof.graph
 
         nnodes = len(theano.gof.graph.ops(predict_inputs, predict_outputs))
-        logging.info("About to compile predict function over %d ops [nodes]..." % nnodes)
+        logging.info("About to compile prediction function over %d ops [nodes]..." % nnodes)
         predict_function = pfunc(predict_inputs, predict_outputs, mode=COMPILE_MODE)
         logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
         nnodes = len(theano.gof.graph.ops(verbose_predict_inputs, verbose_predict_outputs))
-        logging.info("About to compile predict function over %d ops [nodes]..." % nnodes)
+        logging.info("About to compile verbose prediction function over %d ops [nodes]..." % nnodes)
         verbose_predict_function = pfunc(verbose_predict_inputs, verbose_predict_outputs, mode=COMPILE_MODE)
         logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
         nnodes = len(theano.gof.graph.ops(train_inputs, train_outputs))
-        logging.info("About to compile train function over %d ops [nodes]..." % nnodes)
+        logging.info("About to compile training function over %d ops [nodes]..." % nnodes)
         train_function = pfunc(train_inputs, train_outputs, mode=COMPILE_MODE, updates=[(p, p-learning_rate*gp) for p, gp in zip((hidden_weights, hidden_biases, output_weights, output_biases), (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases))])
         logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 

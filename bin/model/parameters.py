@@ -10,13 +10,13 @@ class Parameters:
 
     def __init__(self, hyperparameters):
         import numpy
-        numpy.random.seed(rnd_seed)
+        numpy.random.seed(hyperparameters.rnd_seed)
 
         self.embeddings = numpy.asarray((numpy.random.rand(self.hyperparameters.vocab_size, self.hyperparameters.embedding_size) - 0.5)* 2 * 0.01, dtype=floatX)
-        self.hidden_weights = shared(numpy.asarray(random_weights(self.hyperparameters.input_size, self.hyperparameters.hidden_size, scale_by=1), dtype=floatX))
-        self.output_weights = shared(numpy.asarray(random_weights(self.hyperparameters.hidden_size, self.hyperparameters.output_size, scale_by=1), dtype=floatX))
-        self.hidden_biases = shared(numpy.asarray(numpy.zeros((self.hyperparameters.hidden_size,)), dtype=floatX))
-        self.output_biases = shared(numpy.asarray(numpy.zeros((self.hyperparameters.output_size,)), dtype=floatX))
+        self.hidden_weights = sharedvalue(numpy.asarray(random_weights(self.hyperparameters.input_size, self.hyperparameters.hidden_size, scale_by=1), dtype=floatX))
+        self.output_weights = sharedvalue(numpy.asarray(random_weights(self.hyperparameters.hidden_size, self.hyperparameters.output_size, scale_by=1), dtype=floatX))
+        self.hidden_biases = sharedvalue(numpy.asarray(numpy.zeros((self.hyperparameters.hidden_size,)), dtype=floatX))
+        self.output_biases = sharedvalue(numpy.asarray(numpy.zeros((self.hyperparameters.output_size,)), dtype=floatX))
 
     def normalize(self, indices):
         import numpy

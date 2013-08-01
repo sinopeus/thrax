@@ -18,31 +18,21 @@ def validate(cnt):
     logging.info(stats())
 
 if __name__ == "__main__":
-    # import noise
-    # indexed_weights = noise.indexed_weights()
-
     hyperparameters = Hyperparameters("language-model.cfg")
 
     import os.path, os
-
-    run_dir = hyperparameters.run_dir
-
+    # Setting up a log file. This is handy to follow progress during
+    # the program's execution without resorting to printing to stdout.
     logfile = os.path.join(hyperparameters.run_dir, hyperparameters.logfile)
-    verboselogfile = os.path.join(run_dir, hyperparameters.verboselogfile)
+    verboselogfile = os.path.join(hyperparameters.run_dir, hyperparameters.verboselogfile)
     logging.basicConfig(filename=logfile, filemode="w", level=logging.DEBUG)
     logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
-    import random, numpy
-    random.seed(0)
-    numpy.random.seed(0)
-
     try:
-        trainstate = state.load(run_dir)
-        logging.info("...success reading training state from %s" % run_dir)
-        logging.info("CONTINUING FROM TRAINING STATE")
+        trainstate = state.load(hyperparameters.run_dir)
+        logging.info("Successfully read training state from %s. Continuing from training state." % run_dir)
     except FileNotFoundError:
-        logging.info("...FAILURE reading training state from %s" % run_dir)
-        logging.info("INITIALIZING")
+        logging.info("Failure reading training state from %s. Initialising a new model." % run_dir)
 
         from lexicon import Corpus, Dictionary
         from state import TrainingState

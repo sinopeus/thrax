@@ -1,15 +1,11 @@
 from model.parameters import Parameters
-import graph
-
-import math
-import logging
+import graph, math, logging
 
 class Model:
     """
     A Model can:
 
     @type parameters: L{Parameters}
-    @todo: Document
     """
 
     def __init__(self, hyperparameters):
@@ -32,18 +28,11 @@ class Model:
         graph.output_biases = self.parameters.output_biases
 
     def embed(self, window):
-        """
-        Embed a sequence of vocabulary IDs
-        """
         seq = [self.parameters.embeddings[word] for word in window]
         import numpy
         return [numpy.resize(s, (1, s.size)) for s in seq]
 
     def embeds(self, sequences):
-        """
-        Embed sequences of vocabulary IDs.
-        If we are given a list of MINIBATCH lists of SEQLEN items, return a list of SEQLEN matrices of shape (MINIBATCH, EMBSIZE)
-        """
         embs = []
         for sequence in sequences:
             embs.append(self.embed(sequence))
@@ -60,9 +49,6 @@ class Model:
         return new_embs
 
     def corrupt_example(self, e):
-        """
-        Return a corrupted version of example e, plus the weight of this example.
-        """
         import random
         import copy
         e = copy.copy(e)
@@ -70,12 +56,10 @@ class Model:
         mid = e[pos]
         cnt = 0
         while e[pos] == mid:
-            e[pos] = random.randint(0, self.parameters.vocab_size-1)
-            pr = 1. / self.parameters.vocab_size
+            e[pos] = random.randint(0, self.dictionary.size - 1)
+            pr = 1. / self.dictionary.size
             cnt += 1
-            # Backoff to 0gram smoothing if we fail 10 times to get noise.
-            if cnt > 10: e[pos] = random.randint(0, self.parameters.vocab_size-1)
-        weight = 1./pr
+        weight = 1. / pr
         return e, weight
 
     def corrupt_examples(self, correct_sequences):
@@ -112,25 +96,24 @@ class Model:
             dnoise_inputs = [d[ecnt] for d in dnoise_inputss]
 
             self.trainer.update(loss, correct_score, noise_score, unpenalized_loss, l1penalty)
-                
+
             for w in weights: assert w == weights[0]
             embedding_learning_rate = self.hyperparameters.embedding_learning_rate * weights[0]
             if loss == 0:
                 for di in dcorrect_inputs + dnoise_inputs:
                     assert (di == 0).all()
-    
-            if loss != 0:
+            else:
                 for (i, di) in zip(correct_sequence, dcorrect_inputs):
                     assert di.shape == (self.parameters.embedding_size,)
                     self.parameters.embeddings[i] -= 1.0 * embedding_learning_rate * di
-                    if NORMALIZE_EMBEDDINGS:
+                    if self.hyperparameters.normalize_embeddings:
                         to_normalize.add(i)
                 for (i, di) in zip(noise_sequence, dnoise_inputs):
                     assert di.shape == (self.parameters.embedding_size,)
                     self.parameters.embeddings[i] -= 1.0 * embedding_learning_rate * di
-                    if NORMALIZE_EMBEDDINGS:
+                    if self.hyperparameters.normalize_embeddings:
                         to_normalize.add(i)
-                                
+
         if len(to_normalize) > 0:
             to_normalize = [i for i in to_normalize]
             self.parameters.normalize(to_normalize)
@@ -165,9 +148,15 @@ class Model:
                 rank += 1
         return rank
 
+    """
+    We use a trainer to keep track of progress. This is a wrapper
+    object for all kinds of data related to training: average loss,
+    average error, and a whole host of other variables.
+    """
+
 class Trainer:
     def __init__(self):
-        self.loss = MovingAverage() 
+        self.loss = MovingAverage()
         self.err = MovingAverage()
         self.lossnonzero = MovingAverage()
         self.squashloss = MovingAverage()
@@ -203,7 +192,7 @@ class Trainer:
         logging.info(("After %d updates, pre-update train Pr(unpenalized loss != 0) %s" % (self.cnt, self.unpenalized_lossnonzero.verbose_string())))
         logging.info(("After %d updates, pre-update train correct score %s" % (self.cnt, self.correct_score.verbose_string())))
         logging.info(("After %d updates, pre-update train noise score %s" % (self.cnt, self.noise_score.verbose_string())))
-        
+
 
 class MovingAverage:
     def __init__(self, percent=False):
@@ -218,9 +207,6 @@ class MovingAverage:
         """
         self.cnt += 1
         self.mean = self.mean - (2. / self.cnt) * (self.mean - v)
-        # I believe I should compute self.variance AFTER updating the moving average, because
-        # the estimate of the mean is better.
-        # Yoshua concurs.
         this_variance = (v - self.mean) * (v - self.mean)
         self.variance = self.variance - (2. / self.cnt) * (self.variance - this_variance)
 

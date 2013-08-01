@@ -1,5 +1,5 @@
 """
-Theano graph of Collobert & Weston language model. 
+Theano graph of Collobert & Weston language model.
 Originally written by Joseph Turian, adapted for Python 3 by Xavier Goás Aguililla.
 """
 
@@ -48,23 +48,13 @@ def functions(sequence_length):
         assert 0
     if cachekey not in cached_functions:
         logging.info("Need to construct graph for sequence_length=%d..." % (sequence_length))
-        # Create the sequence_length inputs.
-        # Each is a t.xmatrix(), initial word embeddings (provided by
-        # Jason + Ronan) to be transformed into an initial representation.
-        # We could use a vector, but instead we use a matrix with one row.
-        correct_inputs = [t.xmatrix() for i in range(sequence_length)]
-        noise_inputs = [t.xmatrix() for i in range(sequence_length)]
         learning_rate = t.xscalar()
+        inputs = [t.matrix() for i in range(sequence_length)]
+        correct_outputs = [t.vector() for i in range(sequence_length)]
+        stacked_inputs = stack(inputs)
+        output, prehidden = compute(stacked_inputs)
 
-        stacked_correct_inputs = stack(correct_inputs)
-        stacked_noise_inputs = stack(noise_inputs)
-
-        correct_score, correct_prehidden = score(stacked_correct_inputs)
-        noise_score, noise_prehidden = score(stacked_noise_inputs)
-        unpenalized_loss = t.clip(1 - correct_score + noise_score, 0, 1e999)
-
-        l1penalty = t.as_tensor_variable(numpy.asarray(0, dtype=floatX))
-        loss = (unpenalized_loss.T + l1penalty).T
+        loss =  
 
         total_loss = t.sum(loss)
 

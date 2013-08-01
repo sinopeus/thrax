@@ -15,14 +15,16 @@ class Corpus(Iterator):
   def tokenise(self, line):
     return chars.split(line.strip().lower().replace("-", ""))
 
+  def rewind(self):
+      self.text.seek(0)
+
 class Dictionary:
   def __init__(self, dict_file, size):
     self.indices = {}
-    i = 0
-    for word in iter(self.dict_file):
-      if i > size
-      self.indices[word.strip()] = i
-      i += 1
+    self.size = size
+    for idx, line in enumerate(self.dict_file):
+      if idx < size: break
+      self.indices[line.strip()] = idx
 
   def lookup(self, word):
     return self.indices[word]

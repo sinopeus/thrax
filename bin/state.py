@@ -14,7 +14,6 @@ def load(rundir=None):
 
     trainstate = TrainingState(corpus, dictionary, hyperparameters)
     trainstate.__setstate__(saved_state)
-    trainstate.rundir = rundir
     return trainstate
 
 class TrainingState:
