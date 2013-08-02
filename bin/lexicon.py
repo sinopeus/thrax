@@ -1,4 +1,4 @@
-import re, logging
+import re
 from collections import Iterator
 chars = re.compile('[,\?\!#&_`\.%·; <>]')
 
@@ -22,10 +22,10 @@ class Corpus(Iterator):
   def rewind(self):
     self.text.seek(0)
 
-  def __getstate__():
-    return (self.text.name, count)
+  def __getstate__(self):
+    return (self.text.name, self.count)
 
-  def __setstate__(count):
+  def __setstate__(self,count):
     while self.count < count:
         next(self)
 
