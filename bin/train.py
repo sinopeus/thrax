@@ -31,7 +31,7 @@ if __name__ == "__main__":
         trainstate = TrainingState(corpus, dictionary, hyperparameters)
         trainstate.__setstate__(saved_state)
         logging.info("Successfully read training state from %s. Training may begin." % hyperparameters.run_dir)
-    except FileNotFoundError:
+    except IOError:
         logging.info("Failure reading training state from %s. Initialising a new state." % hyperparameters.run_dir)
 
         from lexicon import Corpus, Dictionary
