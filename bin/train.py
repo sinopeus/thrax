@@ -37,7 +37,6 @@ if __name__ == "__main__":
         from lexicon import Corpus, Dictionary
         logging.info("Processing training corpus ...")
         training_corpus = Corpus(os.path.join(hyperparameters.data_dir, hyperparameters.training_sentences))
-        hyperparameters.vocab_size = training_corpus.lexicon_size()
         logging.info("Training corpus processed, initialising dictionary ...")
         dictionary = Dictionary(training_corpus, hyperparameters.curriculum_sizes[0])
         logging.info("Dictionary initialised, proceeding with training.")
@@ -46,12 +45,6 @@ if __name__ == "__main__":
         trainstate = TrainingState(training_corpus, dictionary, hyperparameters)
         logging.info("State initialised.")
 
-    from validate import Validator
-    logging.info("Processing validation corpus ...")
-    validation_corpus = Corpus(os.path.join(hyperparameters.data_dir, hyperparameters.validation_sentences))
-    logging.info("Validation corpus processed. Initialising model validator.")
-    validator = Validator(validation_corpus, trainstate.model)
-    logging.info("Model validator initialised.")
 
     input("Press any key to continue...")
     for phase, size in enumerate(hyperparameters.curriculum_sizes):
