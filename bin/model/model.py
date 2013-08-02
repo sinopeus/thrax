@@ -12,20 +12,21 @@ class Model:
         self.hyperparameters = hyperparameters
         self.parameters = Parameters(self.hyperparameters)
         self.trainer = Trainer()
-        graph.hidden_weights = self.parameters.hidden_weights
-        graph.hidden_biases = self.parameters.hidden_biases
-        graph.output_weights = self.parameters.output_weights
-        graph.output_biases = self.parameters.output_biases
+        self.init_graph()
 
     def __getstate__(self):
         return (self.hyperparameters, self.parameters, self.trainer)
 
     def __setstate__(self, state):
         (self.hyperparameters, self.parameters, self.trainer) = state
+        self.init_graph()
+
+    def init_graph(self):
         graph.hidden_weights = self.parameters.hidden_weights
         graph.hidden_biases = self.parameters.hidden_biases
         graph.output_weights = self.parameters.output_weights
         graph.output_biases = self.parameters.output_biases
+        graph.hyperparameters = self.hyperparameters
 
     def embed(self, window):
         seq = [self.parameters.embeddings[word] for word in window]
@@ -127,34 +128,26 @@ class Model:
         return score, prehidden
 
     def validate(self, sequence):
-        """
-        Get the rank of this final word, as opposed to all other words in the vocabulary.
-        """
-        import random
-        r = random.Random()
-        r.seed(0)
-
         import copy
         corrupt_sequence = copy.copy(sequence)
         rank = 1
         correct_score = self.predict(sequence)
         mid = self.hyperparameters.window_size // 2
-        for i in range(self.parameters.vocab_size):
-            if r.random() > self.hyperparameters.valdation_logrank_noise_examples_percent: continue
+
+        for i in range(self.dictionary.size - 1):
             if i == sequence[mid]: continue
             corrupt_sequence[mid] = i
             corrupt_score = self.predict(corrupt_sequence)
-            if correct_score <= corrupt_score:
-                rank += 1
+            rank += (correct_score <= corrupt_score)
+
         return rank
 
-    """
-    We use a trainer to keep track of progress. This is a wrapper
-    object for all kinds of data related to training: average loss,
-    average error, and a whole host of other variables.
-    """
-
 class Trainer:
+"""
+We use a trainer to keep track of progress. This is, in effect, a
+wrapper object for all kinds of data related to training: average
+loss, average error, and a whole host of other variables.
+"""
     def __init__(self):
         self.loss = MovingAverage()
         self.err = MovingAverage()

@@ -29,7 +29,18 @@ if __name__ == "__main__":
     logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
     try:
-        trainstate = state.load(hyperparameters.run_dir)
+        logging.info("Trying to read training state from %s..." % rundir)
+        filename = os.path.join(hyperparameters.run_dir, "trainstate.pkl")
+        with open(filename, 'rb') as f:
+            saved_state = pickle.load(f)
+            
+        corpus_state, dictionary_state, hyperparameters = saved_state[0:2]
+        
+        corpus = Corpus(*corpus_state)
+        dictionary = Dictionary(*dictionary_state)
+        
+        trainstate = TrainingState(corpus, dictionary, hyperparameters)
+        trainstate.__setstate__(saved_state)
         logging.info("Successfully read training state from %s. Continuing from training state." % run_dir)
     except FileNotFoundError:
         logging.info("Failure reading training state from %s. Initialising a new model." % run_dir)
@@ -46,8 +57,9 @@ if __name__ == "__main__":
         trainstate = TrainingState(training_corpus, dictionary, hyperparameters)
 
     input("Press Enter to continue...")
-    for size in hyperparameters.curriculum_sizes:
+    for phase, size in enumerate(hyperparameters.curriculum_sizes):
         logging.info("Resizing dictionary ... ")
-        trainstate.dictionary.rebuild(size)
+        trainstate.dictionary.enlarge(size)
         logging.info("Resized dictionary to size %s." % size)
+        logging.info("Initialising curriculum phase %i." % phase)
         trainstate.epoch()
