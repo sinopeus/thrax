@@ -1,0 +1,284 @@
+Press any key to continue.../usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3280: UserWarning: Warning, Cannot compute test value: input 0 (<TensorType(float32, matrix)>) of Op Rebroadcast{?,0}(<TensorType(float32, matrix)>) missing default value
+  rval = Rebroadcast(*[(axis, False) for axis in axes])(x)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 1 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 2 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 3 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 4 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 5 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 6 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 7 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 8 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 9 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 10 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3641: UserWarning: Warning, Cannot compute test value: input 11 (<TensorType(float32, matrix)>) of Op Join(TensorConstant{1}, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>) missing default value
+  return join(axis, *tensor_list)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (Join.0) of Op dot(Join.0, <TensorType(float32, matrix)>) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Elemwise{add,no_inplace}(dot.0, InplaceDimShuffle{x,0}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/Users/xavier/projects/thrax/bin/model/graph.py:19: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{tanh,no_inplace}(Elemwise{add,no_inplace}.0) missing default value
+  return t.tanh(r)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{tanh,no_inplace}.0) of Op dot(Elemwise{tanh,no_inplace}.0, <TensorType(float32, matrix)>) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:214: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{sub,no_inplace}(InplaceDimShuffle{x,x}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.basic.sub(other, self)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{sub,no_inplace}.0) of Op Elemwise{add,no_inplace}(Elemwise{sub,no_inplace}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{add,no_inplace}(Elemwise{sub,no_inplace}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/Users/xavier/projects/thrax/bin/model/graph.py:85: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{clip,no_inplace}(Elemwise{add,no_inplace}.0, InplaceDimShuffle{x,x}.0, InplaceDimShuffle{x,x}.0) missing default value
+  unpenalized_loss = t.clip(1 - correct_score + noise_score, 0, 1e999)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3025: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{clip,no_inplace}.0) of Op DimShuffle{1,0}(Elemwise{clip,no_inplace}.0) missing default value
+  ret = DimShuffle(x.broadcastable, axes, inplace=False)(x)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Elemwise{add,no_inplace}(DimShuffle{1,0}.0, InplaceDimShuffle{x,x}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3025: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op DimShuffle{1,0}(Elemwise{add,no_inplace}.0) missing default value
+  ret = DimShuffle(x.broadcastable, axes, inplace=False)(x)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:2619: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Sum(DimShuffle{1,0}.0) missing default value
+  out = elemwise.Sum(axis=axis, dtype=dtype, acc_dtype=acc_dtype)(input)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:2044: UserWarning: Warning, Cannot compute test value: input 0 (Sum.0) of Op Elemwise{second,no_inplace}(Sum.0, TensorConstant{1.0}) missing default value
+  ret = fill(model, constant(1.0, dtype=dtype))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Sum.0) of Op Shape(Sum.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/gof/op.py:732: UserWarning: Argument 0 has no test value
+  " has no test value")
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:1854: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Sum(DimShuffle{1,0}.0) missing default value
+  out = self(*inp)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:1875: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{second,no_inplace}.0) of Op DimShuffle{x,x}(Elemwise{second,no_inplace}.0) missing default value
+  gx = Elemwise(scalar.second)(x, ds_op(gz))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:1875: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Elemwise{second}(DimShuffle{1,0}.0, DimShuffle{x,x}.0) missing default value
+  gx = Elemwise(scalar.second)(x, ds_op(gz))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:1875: UserWarning: Warning, Cannot compute test value: input 1 (DimShuffle{x,x}.0) of Op Elemwise{second}(DimShuffle{1,0}.0, DimShuffle{x,x}.0) missing default value
+  gx = Elemwise(scalar.second)(x, ds_op(gz))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{second}.0) of Op Shape(Elemwise{second}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Shape(DimShuffle{1,0}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:405: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{second}.0) of Op Elemwise{identity}(Elemwise{second}.0) missing default value
+  Elemwise(scalar.identity)(gz))]
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:405: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{identity}.0) of Op DimShuffle{1,0}(Elemwise{identity}.0) missing default value
+  Elemwise(scalar.identity)(gz))]
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Shape(Elemwise{add,no_inplace}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Elemwise{add,no_inplace}(DimShuffle{1,0}.0, InplaceDimShuffle{x,x}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:716: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Sum{0, 1}(DimShuffle{1,0}.0) missing default value
+  sr = Sum(axis=to_sum)(rval[i])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:322: UserWarning: Warning, Cannot compute test value: input 0 (Sum{0, 1}.0) of Op DimShuffle{x,x}(Sum{0, 1}.0) missing default value
+  return op(self)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{x,x}.0) of Op Shape(DimShuffle{x,x}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/gof/op.py:732: UserWarning: Argument 1 has no test value
+  " has no test value")
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:405: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op Elemwise{identity}(DimShuffle{1,0}.0) missing default value
+  Elemwise(scalar.identity)(gz))]
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{clip,no_inplace}.0) of Op Shape(Elemwise{clip,no_inplace}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{clip,no_inplace}(Elemwise{add,no_inplace}.0, InplaceDimShuffle{x,x}.0, InplaceDimShuffle{x,x}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{GT}(Elemwise{add,no_inplace}.0, InplaceDimShuffle{x,x}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{LT}(Elemwise{add,no_inplace}.0, InplaceDimShuffle{x,x}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{GT}.0) of Op Elemwise{AND}(Elemwise{GT}.0, Elemwise{LT}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{LT}.0) of Op Elemwise{AND}(Elemwise{GT}.0, Elemwise{LT}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{AND}.0) of Op Elemwise{mul}(Elemwise{AND}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (DimShuffle{1,0}.0) of Op Elemwise{mul}(Elemwise{AND}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{LT}.0) of Op Elemwise{mul}(Elemwise{LT}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (DimShuffle{1,0}.0) of Op Elemwise{mul}(Elemwise{LT}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{GT}.0) of Op Elemwise{mul}(Elemwise{GT}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (DimShuffle{1,0}.0) of Op Elemwise{mul}(Elemwise{GT}.0, DimShuffle{1,0}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:716: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{mul}.0) of Op Sum{0, 1}(Elemwise{mul}.0) missing default value
+  sr = Sum(axis=to_sum)(rval[i])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{mul}.0) of Op Shape(Elemwise{mul}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{sub,no_inplace}.0) of Op Elemwise{add,no_inplace}(Elemwise{sub,no_inplace}.0, Elemwise{add,no_inplace}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{add,no_inplace}(Elemwise{sub,no_inplace}.0, Elemwise{add,no_inplace}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{sub,no_inplace}.0) of Op Shape(Elemwise{sub,no_inplace}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{sub,no_inplace}(InplaceDimShuffle{x,x}.0, Elemwise{add,no_inplace}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{mul}.0) of Op Elemwise{neg}(Elemwise{mul}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{neg}.0) of Op Shape(Elemwise{neg}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Elemwise{add,no_inplace}(dot.0, InplaceDimShuffle{x,0}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:716: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{neg}.0) of Op Sum{0}(Elemwise{neg}.0) missing default value
+  sr = Sum(axis=to_sum)(rval[i])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:322: UserWarning: Warning, Cannot compute test value: input 0 (Sum{0}.0) of Op DimShuffle{x,0}(Sum{0}.0) missing default value
+  return op(self)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{x,0}.0) of Op Shape(DimShuffle{x,0}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Shape(dot.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{neg}.0) of Op dot(Elemwise{neg}.0, DimShuffle{1,0}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3025: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{tanh,no_inplace}.0) of Op DimShuffle{1,0}(Elemwise{tanh,no_inplace}.0) missing default value
+  ret = DimShuffle(x.broadcastable, axes, inplace=False)(x)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op dot(DimShuffle{1,0}.0, Elemwise{neg}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{neg}.0) of Op dot(DimShuffle{1,0}.0, Elemwise{neg}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{tanh,no_inplace}.0) of Op Shape(Elemwise{tanh,no_inplace}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:661: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{tanh,no_inplace}(Elemwise{add,no_inplace}.0) missing default value
+  outs = self(*inputs)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{add,no_inplace}.0) of Op Elemwise{tanh}(Elemwise{add,no_inplace}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{tanh}.0) of Op Elemwise{sqr}(Elemwise{tanh}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{sqr}.0) of Op Elemwise{sub}(InplaceDimShuffle{x,x}.0, Elemwise{sqr}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Elemwise{mul}(dot.0, Elemwise{sub}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:773: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{sub}.0) of Op Elemwise{mul}(dot.0, Elemwise{sub}.0) missing default value
+  *[transform(ipt) for ipt in node.inputs])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:716: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{mul}.0) of Op Sum{0}(Elemwise{mul}.0) missing default value
+  sr = Sum(axis=to_sum)(rval[i])
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{mul}.0) of Op dot(Elemwise{mul}.0, DimShuffle{1,0}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3025: UserWarning: Warning, Cannot compute test value: input 0 (Join.0) of Op DimShuffle{1,0}(Join.0) missing default value
+  ret = DimShuffle(x.broadcastable, axes, inplace=False)(x)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1,0}.0) of Op dot(DimShuffle{1,0}.0, Elemwise{mul}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:4659: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{mul}.0) of Op dot(DimShuffle{1,0}.0, Elemwise{mul}.0) missing default value
+  return _dot(a, b)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Elemwise{add,no_inplace}(dot.0, dot.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 1 (dot.0) of Op Elemwise{add,no_inplace}(dot.0, dot.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:405: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{x,0}.0) of Op Elemwise{identity}(DimShuffle{x,0}.0) missing default value
+  Elemwise(scalar.identity)(gz))]
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:405: UserWarning: Warning, Cannot compute test value: input 0 (Elemwise{identity}.0) of Op DimShuffle{1}(Elemwise{identity}.0) missing default value
+  Elemwise(scalar.identity)(gz))]
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1}.0) of Op Shape(DimShuffle{1}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 0 (DimShuffle{1}.0) of Op Elemwise{add,no_inplace}(DimShuffle{1}.0, DimShuffle{1}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:115: UserWarning: Warning, Cannot compute test value: input 1 (DimShuffle{1}.0) of Op Elemwise{add,no_inplace}(DimShuffle{1}.0, DimShuffle{1}.0) missing default value
+  return theano.tensor.basic.add(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Join.0) of Op Shape(Join.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3447: UserWarning: Warning, Cannot compute test value: input 0 (<TensorType(float32, matrix)>) of Op Shape(<TensorType(float32, matrix)>) missing default value
+  for x in tensors]))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:405: UserWarning: Warning, Cannot compute test value: input 0 (Shape.0) of Op Subtensor{int8}(Shape.0, ScalarFromTensor.0) missing default value
+  lambda entry: isinstance(entry, Variable)))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 0 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 1 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 2 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 3 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 4 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 5 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 6 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 7 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 8 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 9 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3617: UserWarning: Warning, Cannot compute test value: input 10 (Subtensor{int8}.0) of Op MakeVector(Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0, Subtensor{int8}.0) missing default value
+  return theano.tensor.opt.MakeVector(dtype)(*tensors)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3447: UserWarning: Warning, Cannot compute test value: input 0 (dot.0) of Op Split{11}(dot.0, TensorConstant{1}, MakeVector.0) missing default value
+  for x in tensors]))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/basic.py:3447: UserWarning: Warning, Cannot compute test value: input 2 (MakeVector.0) of Op Split{11}(dot.0, TensorConstant{1}, MakeVector.0) missing default value
+  for x in tensors]))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.0) of Op Shape(Split{11}.0) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.1) of Op Shape(Split{11}.1) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.2) of Op Shape(Split{11}.2) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.3) of Op Shape(Split{11}.3) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.4) of Op Shape(Split{11}.4) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.5) of Op Shape(Split{11}.5) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.6) of Op Shape(Split{11}.6) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.7) of Op Shape(Split{11}.7) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.8) of Op Shape(Split{11}.8) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.9) of Op Shape(Split{11}.9) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:253: UserWarning: Warning, Cannot compute test value: input 0 (Split{11}.10) of Op Shape(Split{11}.10) missing default value
+  shape = property(lambda self: theano.tensor.basic.shape(self))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:549: UserWarning: Warning, Cannot compute test value: input 0 (<TensorType(float32, scalar)>) of Op InplaceDimShuffle{x,x}(<TensorType(float32, scalar)>) missing default value
+  inplace=True)(input))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:142: UserWarning: Warning, Cannot compute test value: input 0 (InplaceDimShuffle{x,x}.0) of Op Elemwise{mul,no_inplace}(InplaceDimShuffle{x,x}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.mul(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:142: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{mul,no_inplace}(InplaceDimShuffle{x,x}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.mul(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:134: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{mul,no_inplace}.0) of Op Elemwise{sub,no_inplace}(<TensorType(float32, matrix)>, Elemwise{mul,no_inplace}.0) missing default value
+  return theano.tensor.basic.sub(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/elemwise.py:549: UserWarning: Warning, Cannot compute test value: input 0 (<TensorType(float32, scalar)>) of Op InplaceDimShuffle{x}(<TensorType(float32, scalar)>) missing default value
+  inplace=True)(input))
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:142: UserWarning: Warning, Cannot compute test value: input 0 (InplaceDimShuffle{x}.0) of Op Elemwise{mul,no_inplace}(InplaceDimShuffle{x}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.mul(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:142: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{add,no_inplace}.0) of Op Elemwise{mul,no_inplace}(InplaceDimShuffle{x}.0, Elemwise{add,no_inplace}.0) missing default value
+  return theano.tensor.mul(self, other)
+/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/tensor/var.py:134: UserWarning: Warning, Cannot compute test value: input 1 (Elemwise{mul,no_inplace}.0) of Op Elemwise{sub,no_inplace}(<TensorType(float32, vector)>, Elemwise{mul,no_inplace}.0) missing default value
+  return theano.tensor.basic.sub(self, other)
+Traceback (most recent call last):
+  File "train.py", line 56, in <module>
+    trainstate.run_epoch()
+  File "/Users/xavier/projects/thrax/bin/state.py", line 38, in run_epoch
+    for batch in self.batches: self.process(batch)
+  File "/Users/xavier/projects/thrax/bin/state.py", line 50, in process
+    self.model.train(batch)
+  File "/Users/xavier/projects/thrax/bin/model/model.py", line 69, in train
+    r = self.graph.train(self.embeds(correct_sequences), self.embeds(noise_sequences), learning_rate * weights[0])
+  File "/Users/xavier/projects/thrax/bin/model/graph.py", line 53, in train
+    r = fn(*(correct_sequence + noise_sequence + [learning_rate]))
+  File "/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/compile/function_module.py", line 581, in __call__
+    outputs = self.fn()
+  File "/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/compile/debugmode.py", line 2028, in deco
+    return f()
+  File "/usr/local/Cellar/python3/3.3.2/Frameworks/Python.framework/Versions/3.3/lib/python3.3/site-packages/Theano-0.6.0rc3-py3.3.egg/theano/compile/debugmode.py", line 1739, in f
+    "%s" % (r, storage_map[r][0])))
+theano.compile.debugmode.InvalidValueError: InvalidValueError
+        type(variable) = TensorType(float32, (True, True))
+        variable       = TensorConstant{(1, 1) of inf}
+        type(value)    = <class 'numpy.ndarray'>
+        dtype(value)   = float32
+        shape(value)   = (1, 1)
+        value          = [[ inf]]
+        min(value)     = inf
+        max(value)     = inf
+        isfinite       = False
+        client_node    = None
+        hint           = Graph Input 'TensorConstant{(1, 1) of inf}' has invalid value [[ inf]]
+        specific_hint  = none
+        context        = ...
+  TensorConstant{(1, 1) of inf} [@A]
+
+        
