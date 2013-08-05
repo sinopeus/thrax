@@ -13,7 +13,7 @@ if __name__ == "__main__":
     logfile = os.path.join(hyperparameters.run_dir, hyperparameters.logfile)
     verboselogfile = os.path.join(hyperparameters.run_dir, hyperparameters.verboselogfile)
     logging.basicConfig(filename=logfile, filemode="w", level=logging.DEBUG)
-    logging.info("Logging to %s, and creating link %s" % (logfile, verboselogfile))
+    print("Logging to %s, and creating link %s" % (logfile, verboselogfile))
 
     try:
         logging.info("Trying to read training state from %s..." % hyperparameters.run_dir)
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         logging.info("Processing training corpus ...")
         training_corpus = Corpus(os.path.join(hyperparameters.data_dir, hyperparameters.training_sentences))
         logging.info("Training corpus processed, initialising dictionary ...")
-        dictionary = Dictionary(training_corpus, hyperparameters.curriculum_sizes[0])
+        dictionary = Dictionary(os.path.join(hyperparameters.data_dir, hyperparameters.dictionary), hyperparameters.curriculum_sizes[0])
         logging.info("Dictionary initialised, proceeding with training.")
 
         from state import TrainingState
@@ -48,8 +48,9 @@ if __name__ == "__main__":
 
     input("Press any key to continue...")
     for phase, size in enumerate(hyperparameters.curriculum_sizes):
+        hyperparameters.curriculum_size = size
         logging.info("Resizing dictionary ... ")
         trainstate.dictionary.enlarge(size)
         logging.info("Resized dictionary to size %s." % size)
         logging.info("Initialising curriculum phase %i." % phase)
-        trainstate.epoch()
+        trainstate.run_epoch()

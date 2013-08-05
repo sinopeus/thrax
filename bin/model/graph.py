@@ -4,18 +4,14 @@ Originally written by Joseph Turian, adapted for Python 3 by Xavier Goás Aguili
 """
 
 import theano, logging
-from theano.compile import pfunc
-floatX = theano.configparser.parse_config_string('scalar.floatX')
+floatX = theano.config.floatX
+# COMPILE_MODE = theano.compile.mode.Mode(linker='py', optimizer='fast_compile')
+COMPILE_MODE = "FAST_RUN"
+# COMPILE_MODE = "DebugMode"
+import theano.tensor.basic as t
+from theano.gradient import grad
+import theano.compile as com
 
-from theano import tensor as t
-#from theano import scalar as s
-
-from theano.tensor.basic import horizontal_stack, dot
-from theano.gradient import grad as gradient
-
-import theano.compile
-
-COMPILE_MODE = theano.compile.mode.Mode('c|py', 'fast_run')
 
 import numpy
 
@@ -24,7 +20,7 @@ def activation_function(r):
 
 def stack(x):
     assert len(x) >= 2
-    return horizontal_stack(*x)
+    return t.horizontal_stack(*x)
 
 class Graph:
     def __init__(self, hyperparameters, parameters):
@@ -36,9 +32,9 @@ class Graph:
         self.cached_functions = {}
 
     def score(self,x):
-        prehidden = dot(x, self.hidden_weights) + self.hidden_biases
+        prehidden = t.dot(x, self.hidden_weights) + self.hidden_biases
         hidden = activation_function(prehidden)
-        score = dot(hidden, self.output_weights) + self.output_biases
+        score = t.dot(hidden, self.output_weights) + self.output_biases
         return score, prehidden
 
     def predict(self, correct_sequence, parameters):
@@ -75,9 +71,9 @@ class Graph:
         if cachekey not in self.cached_functions:
             logging.info("Need to construct graph for sequence_length=%d..." % (sequence_length))
 
-            correct_inputs = [t.xmatrix() for i in range(sequence_length)]
-            noise_inputs = [t.xmatrix() for i in range(sequence_length)]
-            learning_rate = t.xscalar()
+            correct_inputs = t.matrices(sequence_length)
+            noise_inputs = t.matrices(sequence_length)
+            learning_rate = t.scalar()
 
             stacked_correct_inputs = stack(correct_inputs)
             stacked_noise_inputs = stack(noise_inputs)
@@ -91,9 +87,9 @@ class Graph:
 
             total_loss = t.sum(loss)
 
-            (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases) = gradient(total_loss, [self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases])
-            dcorrect_inputs = gradient(total_loss, correct_inputs)
-            dnoise_inputs = gradient(total_loss, noise_inputs)
+            (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases) = grad(total_loss, [self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases])
+            dcorrect_inputs = grad(total_loss, correct_inputs)
+            dnoise_inputs = grad(total_loss, noise_inputs)
             predict_inputs = correct_inputs
             train_inputs = correct_inputs + noise_inputs + [learning_rate]
             verbose_predict_inputs = predict_inputs
@@ -105,17 +101,17 @@ class Graph:
 
             nnodes = len(theano.gof.graph.ops(predict_inputs, predict_outputs))
             logging.info("About to compile prediction function over %d ops [nodes]..." % nnodes)
-            predict_function = pfunc(predict_inputs, predict_outputs, mode=COMPILE_MODE)
+            predict_function = theano.function(predict_inputs, predict_outputs, mode=COMPILE_MODE)
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
             nnodes = len(theano.gof.graph.ops(verbose_predict_inputs, verbose_predict_outputs))
             logging.info("About to compile verbose prediction function over %d ops [nodes]..." % nnodes)
-            verbose_predict_function = pfunc(verbose_predict_inputs, verbose_predict_outputs, mode=COMPILE_MODE)
+            verbose_predict_function = theano.function(verbose_predict_inputs, verbose_predict_outputs, mode=COMPILE_MODE)
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
             nnodes = len(theano.gof.graph.ops(train_inputs, train_outputs))
             logging.info("About to compile training function over %d ops [nodes]..." % nnodes)
-            train_function = pfunc(train_inputs, train_outputs, mode=COMPILE_MODE, updates=[(p, p-learning_rate*gp) for p, gp in zip((self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases), (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases))])
+            train_function = theano.function(train_inputs, train_outputs, mode=COMPILE_MODE, updates=[(p, p-learning_rate*gp) for p, gp in zip((self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases), (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases))])
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
             self.cached_functions[cachekey] = (predict_function, train_function, verbose_predict_function)

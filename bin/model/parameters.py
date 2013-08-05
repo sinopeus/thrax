@@ -1,13 +1,14 @@
 import numpy, math, theano.configparser
 from theano.compile.sharedvalue import shared
 
-floatX = theano.configparser.parse_config_string('scalar.floatX')
+floatX = theano.config.floatX
 sqrt3 = math.sqrt(3.0)
 
 class Parameters:
     def __init__(self, hyperparameters):
         self.hyperparameters = hyperparameters
-        numpy.random.seed(hyperparameters.rnd_seed)
+        # numpy.random.seed(hyperparameters.rnd_seed)
+        numpy.random.seed()
 
         self.embeddings = numpy.asarray((numpy.random.rand(self.hyperparameters.vocab_size, self.hyperparameters.embedding_size) - 0.5)* 2 * 0.01, dtype=floatX)
         self.hidden_weights = shared(numpy.asarray(random_weights(self.hyperparameters.input_size, self.hyperparameters.hidden_size, scale_by=1), dtype=floatX))

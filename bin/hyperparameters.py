@@ -10,7 +10,7 @@ class Hyperparameters:
         config = configparser.ConfigParser()
         config.readfp(open(config_file))
 
-        data_vars = ["data_dir", "bin_dir", "run_dir", "run_name", "modelfile", "statefile", "training_sentences", "validation_sentences", "logfile", "verboselogfile"]
+        data_vars = ["data_dir", "bin_dir", "run_dir", "run_name", "modelfile", "statefile", "training_sentences", "validation_sentences", "logfile", "verboselogfile", "dictionary"]
 
         training_vars_str = ["curriculum_sizes", "activation_function"]
         training_vars_int = ["vocab_size", "batch_size", "embedding_size", "window_size", "input_size","hidden_size", "output_size", "validate_every", "updates_per_normalize_embeddings", "rnd_seed"]

@@ -7,7 +7,7 @@ class Model:
         self.hyperparameters = hyperparameters
         self.parameters = Parameters(self.hyperparameters)
         self.trainer = Trainer()
-        self.graph = Graph(self.Hyperparameters, self.parameters)
+        self.graph = Graph(self.hyperparameters, self.parameters)
 
     def __getstate__(self):
         return (self.hyperparameters, self.parameters, self.trainer)
@@ -33,20 +33,20 @@ class Model:
             colembs = [embs[j][i] for j in range(len(embs))]
             import numpy
             new_embs.append(numpy.vstack(colembs))
-            assert new_embs[-1].shape == (len(sequences), self.parameters.embedding_size)
+            assert new_embs[-1].shape == (len(sequences), self.hyperparameters.embedding_size)
         assert len(new_embs) == len(sequences[0])
         return new_embs
 
     def corrupt_example(self, e):
         import random
         import copy
-        e = copy.copy(e)
+        e = copy.deepcopy(e)
         pos = - self.hyperparameters.window_size // 2
         mid = e[pos]
         cnt = 0
         while e[pos] == mid:
-            e[pos] = random.randint(0, self.dictionary.size - 1)
-            pr = 1. / self.dictionary.size
+            e[pos] = random.randint(0, self.hyperparameters.curriculum_size - 1)
+            pr = 1. / self.hyperparameters.curriculum_size
             cnt += 1
         weight = 1. / pr
         return e, weight
@@ -73,11 +73,6 @@ class Model:
         for example in range(len(correct_sequences)):
             (loss, unpenalized_loss, correct_score, noise_score) = \
                 (losss[example], unpenalized_losss[example], correct_scores[example], noise_scores[example])
-            if l1penaltys.shape == ():
-                assert l1penaltys == 0
-                l1penalty = 0
-            else:
-                l1penalty = l1penaltys[example]
             correct_sequence = correct_sequences[example]
             noise_sequence = noise_sequences[example]
 
@@ -93,12 +88,12 @@ class Model:
                     assert (di == 0).all()
             else:
                 for (i, di) in zip(correct_sequence, dcorrect_inputs):
-                    assert di.shape == (self.parameters.embedding_size,)
+                    assert di.shape == (self.hyperparameters.embedding_size,)
                     self.parameters.embeddings[i] -= 1.0 * embedding_learning_rate * di
                     if self.hyperparameters.normalize_embeddings:
                         to_normalize.add(i)
                 for (i, di) in zip(noise_sequence, dnoise_inputs):
-                    assert di.shape == (self.parameters.embedding_size,)
+                    assert di.shape == (self.hyperparameters.embedding_size,)
                     self.parameters.embeddings[i] -= 1.0 * embedding_learning_rate * di
                     if self.hyperparameters.normalize_embeddings:
                         to_normalize.add(i)
@@ -122,7 +117,7 @@ class Model:
         correct_score = self.predict(sequence)
         mid = self.hyperparameters.window_size // 2
 
-        for i in range(self.dictionary.size - 1):
+        for i in range(self.hyperparameters.curriculum_size - 1):
             if i == sequence[mid]: continue
             corrupt_sequence[mid] = i
             corrupt_score = self.predict(corrupt_sequence)
