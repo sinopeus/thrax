@@ -3,117 +3,88 @@ Theano graph of Collobert & Weston language model.
 Originally written by Joseph Turian, adapted for Python 3 by Xavier Goás Aguililla.
 """
 
-import theano, logging
-floatX = theano.config.floatX
-# COMPILE_MODE = theano.compile.mode.Mode(linker='py', optimizer='fast_compile')
-COMPILE_MODE = "FAST_RUN"
-# COMPILE_MODE = "DebugMode"
+import theano, logging, numpy
 import theano.tensor.basic as t
 from theano.gradient import grad
-import theano.compile as com
 
-
-import numpy
-
-def activation_function(r):
-    return t.tanh(r)
-
-def stack(x):
-    assert len(x) >= 2
-    return t.horizontal_stack(*x)
+theano.config.floatX = 'float32'
+floatX = theano.config.floatX
+COMPILE_MODE = "FAST_RUN"
 
 class Graph:
     def __init__(self, hyperparameters, parameters):
-        self.hidden_weights = parameters.hidden_weights
-        self.hidden_biases = parameters.hidden_biases
-        self.output_weights = parameters.output_weights
-        self.output_biases = parameters.output_biases
         self.hyperparameters = hyperparameters
-        self.cached_functions = {}
+        self.parameters = parameters
+        self.cache = {}
 
     def score(self,x):
-        prehidden = t.dot(x, self.hidden_weights) + self.hidden_biases
-        hidden = activation_function(prehidden)
-        score = t.dot(hidden, self.output_weights) + self.output_biases
+        prehidden = t.dot(x, self.parameters.hidden_weights) + self.parameters.hidden_biases
+        hidden = t.clip(prehidden, -1, 1)
+        score = t.dot(hidden, self.parameters.output_weights) + self.parameters.output_biases
         return score, prehidden
 
     def predict(self, correct_sequence, parameters):
-        fn = self.functions(sequence_length=len(correct_sequence))[0]
-        r = fn(*(correct_sequence))
-        assert len(r) == 1
-        r = r[0]
-        assert r.shape == (1, 1)
-        return r[0,0]
+        f = self.functions(sequence_length=len(correct_sequence))[0]
+        return f(correct_sequence)
 
     def train(self, correct_sequence, noise_sequence, learning_rate):
         assert len(correct_sequence) == len(noise_sequence)
-        fn = self.functions(sequence_length=len(correct_sequence))[1]
-        r = fn(*(correct_sequence + noise_sequence + [learning_rate]))
-        dcorrect_inputs = r[:len(correct_sequence)]
-        r = r[len(correct_sequence):]
-        dnoise_inputs = r[:len(noise_sequence)]
-        r = r[len(correct_sequence):]
-        (loss, unpenalized_loss, l1penalty, correct_score, noise_score) = r
-
-        return (dcorrect_inputs, dnoise_inputs, loss, unpenalized_loss, l1penalty, correct_score, noise_score)
+        f = self.functions(sequence_length=len(correct_sequence))[1]
+        return f(correct_sequence, noise_sequence, learning_rate)
 
     def verbose_predict(self, correct_sequence, parameters):
-        fn = self.functions(sequence_length=len(correct_sequence))[2]
-        r = fn(*(correct_sequence))
-        assert len(r) == 2
-        (score, prehidden) = r
-        assert score.shape == (1, 1)
-        return score[0,0], prehidden
+        f = self.functions(sequence_length=len(correct_sequence))[2]
+        return f(correct_sequence)
 
     def functions(self, sequence_length):
-        cachekey = (sequence_length)
+        key = (sequence_length)
 
-        if cachekey not in self.cached_functions:
+        if key not in self.cache:
             logging.info("Need to construct graph for sequence_length=%d..." % (sequence_length))
 
-            correct_inputs = t.matrices(sequence_length)
-            noise_inputs = t.matrices(sequence_length)
-            learning_rate = t.scalar()
+            # creating network input variable nodes
+            correct_inputs = t.ftensor3("correct input")
+            noise_inputs = t.ftensor3("noise input")
+            learning_rate = t.fscalar("learning rate")
 
-            stacked_correct_inputs = stack(correct_inputs)
-            stacked_noise_inputs = stack(noise_inputs)
+            # creating op nodes for firing the network
+            correct_score, correct_prehidden = self.score(correct_inputs)
+            noise_score, noise_prehidden = self.score(noise_inputs)
 
-            correct_score, correct_prehidden = self.score(stacked_correct_inputs)
-            noise_score, noise_prehidden = self.score(stacked_noise_inputs)
-            unpenalized_loss = t.clip(1 - correct_score + noise_score, 0, 1e999)
-
-            l1penalty = t.as_tensor_variable(numpy.asarray(0, dtype=floatX))
-            loss = (unpenalized_loss.T + l1penalty).T
-
+            # creating op nodes for the pairwise ranking cost function
+            loss = t.clip(1 - correct_score + noise_score, 0, 1e999)
             total_loss = t.sum(loss)
 
-            (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases) = grad(total_loss, [self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases])
-            dcorrect_inputs = grad(total_loss, correct_inputs)
-            dnoise_inputs = grad(total_loss, noise_inputs)
-            predict_inputs = correct_inputs
-            train_inputs = correct_inputs + noise_inputs + [learning_rate]
-            verbose_predict_inputs = predict_inputs
-            predict_outputs = [correct_score]
-            train_outputs = dcorrect_inputs + dnoise_inputs + [loss, unpenalized_loss, l1penalty, correct_score, noise_score]
-            verbose_predict_outputs = [correct_score, correct_prehidden]
+            # the necessary cost function gradients
+            parameters_gradient = grad(total_loss, list(self.parameters))
+            correct_inputs_gradient = grad(total_loss, correct_inputs)
+            noise_inputs_gradient = grad(total_loss, noise_inputs)
 
-            import theano.gof.graph
+            # setting network inputs
+            predict_inputs = [correct_inputs]
+            train_inputs = [correct_inputs, noise_inputs, learning_rate]
+            verbose_predict_inputs = predict_inputs
+
+            # setting network outputs
+            predict_outputs = [correct_score]
+            train_outputs = [correct_inputs_gradient, noise_inputs_gradient, loss, correct_score, noise_score]
+            verbose_predict_outputs = [correct_score, correct_prehidden]
 
             nnodes = len(theano.gof.graph.ops(predict_inputs, predict_outputs))
             logging.info("About to compile prediction function over %d ops [nodes]..." % nnodes)
-            predict_function = theano.function(predict_inputs, predict_outputs, mode=COMPILE_MODE)
+            predict = theano.function(predict_inputs, predict_outputs, mode=COMPILE_MODE)
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
             nnodes = len(theano.gof.graph.ops(verbose_predict_inputs, verbose_predict_outputs))
             logging.info("About to compile verbose prediction function over %d ops [nodes]..." % nnodes)
-            verbose_predict_function = theano.function(verbose_predict_inputs, verbose_predict_outputs, mode=COMPILE_MODE)
+            verbose_predict = theano.function(verbose_predict_inputs, verbose_predict_outputs, mode=COMPILE_MODE)
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
             nnodes = len(theano.gof.graph.ops(train_inputs, train_outputs))
             logging.info("About to compile training function over %d ops [nodes]..." % nnodes)
-            train_function = theano.function(train_inputs, train_outputs, mode=COMPILE_MODE, updates=[(p, p-learning_rate*gp) for p, gp in zip((self.hidden_weights, self.hidden_biases, self.output_weights, self.output_biases), (dhidden_weights, dhidden_biases, doutput_weights, doutput_biases))])
+            train = theano.function(train_inputs, train_outputs, mode=COMPILE_MODE, updates=[(p, p - learning_rate * gp) for p, gp in zip(list(self.parameters), parameters_gradient)])
             logging.info("...done constructing graph for sequence_length=%d" % (sequence_length))
 
-            self.cached_functions[cachekey] = (predict_function, train_function, verbose_predict_function)
+            self.cache[key] = (predict, train, verbose_predict)
 
-        return self.cached_functions[cachekey]
+        return self.cache[key]

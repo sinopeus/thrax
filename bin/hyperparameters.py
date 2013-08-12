@@ -2,7 +2,7 @@
 Module for storing hyperparameters.
 """
 
-import configparser
+import configparser, numpy
 
 class Hyperparameters:
     def __init__(self, config_file):
@@ -14,7 +14,7 @@ class Hyperparameters:
 
         training_vars_str = ["curriculum_sizes", "activation_function"]
         training_vars_int = ["vocab_size", "batch_size", "embedding_size", "window_size", "input_size","hidden_size", "output_size", "validate_every", "updates_per_normalize_embeddings", "rnd_seed"]
-        training_vars_float = ["init_embedding_range", "embedding_l1_penalty", "validation_logrank_noise_examples_percent", "scale_init_weights_by", "learning_rate", "embedding_learning_rate"]
+        training_vars_float = ["init_embedding_range", "validation_logrank_noise_examples_percent", "scale_init_weights_by", "learning_rate", "embedding_learning_rate"]
         training_vars_bool = ["normalize_embeddings", "include_unknown_words"]
 
         for opt in data_vars:
@@ -27,7 +27,7 @@ class Hyperparameters:
             setattr(self, opt, config.getint("training", opt))
 
         for opt in training_vars_float:
-            setattr(self, opt, config.getfloat("training", opt))
+            setattr(self, opt, numpy.float32(config.getfloat("training", opt)))
 
         for opt in training_vars_bool:
             setattr(self, opt, config.getboolean("training",opt))

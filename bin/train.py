@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
 
     input("Press any key to continue...")
-    for phase, size in enumerate(hyperparameters.curriculum_sizes):
+    for phase, size in enumerate(hyperparameters.curriculum_sizes, start=1):
         hyperparameters.curriculum_size = size
         logging.info("Resizing dictionary ... ")
         trainstate.dictionary.enlarge(size)
